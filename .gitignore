@@ -1,0 +1,19 @@
+## Build Results
+[Bb]in/
+[Oo]bj/
+
+## Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## NuGet
+packages/
+*.nupkg
+
+## SQLite runtime DBs
+*.db-shm
+*.db-wal
+database/*.db
