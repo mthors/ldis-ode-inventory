@@ -127,6 +127,7 @@ namespace LDIS.App.Forms
             this.txtSKU.Location = new Point(inputCol1, 25);
             this.txtSKU.Size = new Size(200, 23);
             this.txtSKU.MaxLength = 50;
+            this.txtSKU.TabIndex = 0;
 
             // Product Name
             this.lblName.Location = new Point(leftCol1, 60);
@@ -137,6 +138,7 @@ namespace LDIS.App.Forms
             this.txtName.Location = new Point(inputCol1, 60);
             this.txtName.Size = new Size(330, 23);
             this.txtName.MaxLength = 150;
+            this.txtName.TabIndex = 1;
 
             // Category
             this.lblCategory.Location = new Point(leftCol1, 95);
@@ -147,11 +149,13 @@ namespace LDIS.App.Forms
             this.cboCategory.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cboCategory.Location = new Point(inputCol1, 95);
             this.cboCategory.Size = new Size(230, 23);
+            this.cboCategory.TabIndex = 2;
 
-            this.btnManageCategories.Location = new Point(388, 94);
-            this.btnManageCategories.Size = new Size(92, 25);
+            this.btnManageCategories.Location = new Point(388, 93);
+            this.btnManageCategories.Size = new Size(92, 27);
             this.btnManageCategories.Text = "Manage...";
             this.btnManageCategories.UseVisualStyleBackColor = true;
+            this.btnManageCategories.TabIndex = 3;
             this.btnManageCategories.Click += new EventHandler(this.btnManageCategories_Click);
 
             // Brand
@@ -163,6 +167,7 @@ namespace LDIS.App.Forms
             this.txtBrand.Location = new Point(inputCol1, 130);
             this.txtBrand.Size = new Size(230, 23);
             this.txtBrand.MaxLength = 50;
+            this.txtBrand.TabIndex = 4;
 
             // Color
             this.lblColor.Location = new Point(leftCol1, 165);
@@ -173,6 +178,7 @@ namespace LDIS.App.Forms
             this.txtColor.Location = new Point(inputCol1, 165);
             this.txtColor.Size = new Size(230, 23);
             this.txtColor.MaxLength = 50;
+            this.txtColor.TabIndex = 5;
 
             // Size
             this.lblSize.Location = new Point(leftCol1, 200);
@@ -183,6 +189,7 @@ namespace LDIS.App.Forms
             this.txtSize.Location = new Point(inputCol1, 200);
             this.txtSize.Size = new Size(150, 23);
             this.txtSize.MaxLength = 50;
+            this.txtSize.TabIndex = 6;
 
             // Gender (Controlled DropDownList)
             this.lblGender.Location = new Point(leftCol1, 235);
@@ -193,6 +200,7 @@ namespace LDIS.App.Forms
             this.cboGender.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cboGender.Location = new Point(inputCol1, 235);
             this.cboGender.Size = new Size(180, 23);
+            this.cboGender.TabIndex = 7;
             foreach (var g in GenderOptions.All)
             {
                 this.cboGender.Items.Add(g);
@@ -208,6 +216,7 @@ namespace LDIS.App.Forms
             this.txtPurchasePrice.Location = new Point(inputCol1, 270);
             this.txtPurchasePrice.Size = new Size(180, 23);
             this.txtPurchasePrice.TextAlign = HorizontalAlignment.Right;
+            this.txtPurchasePrice.TabIndex = 8;
             this.txtPurchasePrice.Leave += new EventHandler(this.txtPrice_Leave);
 
             // Selling Price
@@ -219,6 +228,7 @@ namespace LDIS.App.Forms
             this.txtSellingPrice.Location = new Point(inputCol1, 305);
             this.txtSellingPrice.Size = new Size(180, 23);
             this.txtSellingPrice.TextAlign = HorizontalAlignment.Right;
+            this.txtSellingPrice.TabIndex = 9;
             this.txtSellingPrice.Leave += new EventHandler(this.txtPrice_Leave);
 
             // Min Stock Level
@@ -231,6 +241,7 @@ namespace LDIS.App.Forms
             this.numMinStock.Size = new Size(100, 23);
             this.numMinStock.Maximum = 1000000;
             this.numMinStock.TextAlign = HorizontalAlignment.Right;
+            this.numMinStock.TabIndex = 10;
 
             // Current Stock (Read-only)
             this.lblCurrentStock.Location = new Point(leftCol1, 375);
@@ -256,64 +267,12 @@ namespace LDIS.App.Forms
             this.chkIsActive.Size = new Size(150, 24);
             this.chkIsActive.Text = "Active Product";
             this.chkIsActive.Checked = true;
-
-            // Bottom Panel
-            this.pnlBottom.Dock = DockStyle.Bottom;
-            this.pnlBottom.Height = 55;
-            this.pnlBottom.BackColor = SystemColors.Control;
-            this.pnlBottom.Controls.Add(this.btnSave);
-            this.pnlBottom.Controls.Add(this.btnCancel);
-
-            // btnSave
-            this.btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.btnSave.Location = new Point(310, 12);
-            this.btnSave.Size = new Size(100, 32);
-            this.btnSave.Text = "&Save [Ctrl+S]";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new EventHandler(this.btnSave_Click);
-
-            // btnCancel
-            this.btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.btnCancel.DialogResult = DialogResult.Cancel;
-            this.btnCancel.Location = new Point(418, 12);
-            this.btnCancel.Size = new Size(85, 32);
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new EventHandler(this.btnCancel_Click);
+            this.chkIsActive.TabIndex = 11;
 
             // Form
-            this.AcceptButton = this.btnSave;
-            this.CancelButton = this.btnCancel;
-            this.KeyPreview = true;
             this.AutoScaleDimensions = new SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new Size(525, 510);
-            this.Controls.Add(this.pnlBottom);
-            this.Controls.Add(this.chkIsActive);
-            this.Controls.Add(this.lblStockNote);
-            this.Controls.Add(this.txtCurrentStock);
-            this.Controls.Add(this.lblCurrentStock);
-            this.Controls.Add(this.numMinStock);
-            this.Controls.Add(this.lblMinStock);
-            this.Controls.Add(this.txtSellingPrice);
-            this.Controls.Add(this.lblSellingPrice);
-            this.Controls.Add(this.txtPurchasePrice);
-            this.Controls.Add(this.lblPurchasePrice);
-            this.Controls.Add(this.cboGender);
-            this.Controls.Add(this.lblGender);
-            this.Controls.Add(this.txtSize);
-            this.Controls.Add(this.lblSize);
-            this.Controls.Add(this.txtColor);
-            this.Controls.Add(this.lblColor);
-            this.Controls.Add(this.txtBrand);
-            this.Controls.Add(this.lblBrand);
-            this.Controls.Add(this.btnManageCategories);
-            this.Controls.Add(this.cboCategory);
-            this.Controls.Add(this.lblCategory);
-            this.Controls.Add(this.txtName);
-            this.Controls.Add(this.lblName);
-            this.Controls.Add(this.txtSKU);
-            this.Controls.Add(this.lblSKU);
+            this.ClientSize = new Size(540, 520);
             this.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -321,6 +280,74 @@ namespace LDIS.App.Forms
             this.ShowInTaskbar = false;
             this.StartPosition = FormStartPosition.CenterParent;
             this.Text = _itemId <= 0 ? "New Product" : "Edit Product";
+
+            // Bottom Panel
+            this.pnlBottom.Size = new Size(540, 55);
+            this.pnlBottom.Height = 55;
+            this.pnlBottom.Dock = DockStyle.Bottom;
+            this.pnlBottom.BackColor = Color.FromArgb(240, 243, 246);
+            this.pnlBottom.BorderStyle = BorderStyle.FixedSingle;
+            this.pnlBottom.TabIndex = 12;
+            this.pnlBottom.TabStop = false;
+
+            // btnSave
+            this.btnSave.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.btnSave.BackColor = Color.FromArgb(46, 204, 113);
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.FlatStyle = FlatStyle.Flat;
+            this.btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, ((byte)(0)));
+            this.btnSave.ForeColor = Color.White;
+            this.btnSave.Location = new Point(325, 11);
+            this.btnSave.Size = new Size(100, 32);
+            this.btnSave.TabIndex = 0;
+            this.btnSave.Text = "&Save";
+            this.btnSave.UseVisualStyleBackColor = false;
+            this.btnSave.Click += new EventHandler(this.btnSave_Click);
+
+            // btnCancel
+            this.btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            this.btnCancel.DialogResult = DialogResult.Cancel;
+            this.btnCancel.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancel.Location = new Point(435, 11);
+            this.btnCancel.Size = new Size(85, 32);
+            this.btnCancel.TabIndex = 1;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new EventHandler(this.btnCancel_Click);
+
+            this.pnlBottom.Controls.Add(this.btnSave);
+            this.pnlBottom.Controls.Add(this.btnCancel);
+
+            this.AcceptButton = this.btnSave;
+            this.CancelButton = this.btnCancel;
+            this.KeyPreview = true;
+
+            this.Controls.Add(this.lblSKU);
+            this.Controls.Add(this.txtSKU);
+            this.Controls.Add(this.lblName);
+            this.Controls.Add(this.txtName);
+            this.Controls.Add(this.lblCategory);
+            this.Controls.Add(this.cboCategory);
+            this.Controls.Add(this.btnManageCategories);
+            this.Controls.Add(this.lblBrand);
+            this.Controls.Add(this.txtBrand);
+            this.Controls.Add(this.lblColor);
+            this.Controls.Add(this.txtColor);
+            this.Controls.Add(this.lblSize);
+            this.Controls.Add(this.txtSize);
+            this.Controls.Add(this.lblGender);
+            this.Controls.Add(this.cboGender);
+            this.Controls.Add(this.lblPurchasePrice);
+            this.Controls.Add(this.txtPurchasePrice);
+            this.Controls.Add(this.lblSellingPrice);
+            this.Controls.Add(this.txtSellingPrice);
+            this.Controls.Add(this.lblMinStock);
+            this.Controls.Add(this.numMinStock);
+            this.Controls.Add(this.lblCurrentStock);
+            this.Controls.Add(this.txtCurrentStock);
+            this.Controls.Add(this.lblStockNote);
+            this.Controls.Add(this.chkIsActive);
+            this.Controls.Add(this.pnlBottom);
 
             this.KeyDown += new KeyEventHandler(this.ItemEditForm_KeyDown);
             this.Load += new EventHandler(this.ItemEditForm_Load);

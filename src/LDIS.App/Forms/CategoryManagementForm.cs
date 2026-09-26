@@ -87,7 +87,7 @@ namespace LDIS.App.Forms
             // btnAdd
             this.btnAdd.Location = new System.Drawing.Point(298, 90);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(95, 28);
+            this.btnAdd.Size = new System.Drawing.Size(95, 30);
             this.btnAdd.TabIndex = 2;
             this.btnAdd.Text = "&Add New";
             this.btnAdd.UseVisualStyleBackColor = true;
@@ -96,16 +96,16 @@ namespace LDIS.App.Forms
             // btnRename
             this.btnRename.Location = new System.Drawing.Point(403, 90);
             this.btnRename.Name = "btnRename";
-            this.btnRename.Size = new System.Drawing.Size(95, 28);
+            this.btnRename.Size = new System.Drawing.Size(95, 30);
             this.btnRename.TabIndex = 3;
             this.btnRename.Text = "&Rename";
             this.btnRename.UseVisualStyleBackColor = true;
             this.btnRename.Click += new EventHandler(this.btnRename_Click);
 
             // btnDelete
-            this.btnDelete.Location = new System.Drawing.Point(298, 126);
+            this.btnDelete.Location = new System.Drawing.Point(298, 128);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(95, 28);
+            this.btnDelete.Size = new System.Drawing.Size(95, 30);
             this.btnDelete.TabIndex = 4;
             this.btnDelete.Text = "&Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@ namespace LDIS.App.Forms
             this.btnClose.DialogResult = DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(403, 252);
             this.btnClose.Name = "btnClose";
-            this.btnClose.Size = new System.Drawing.Size(95, 28);
+            this.btnClose.Size = new System.Drawing.Size(95, 30);
             this.btnClose.TabIndex = 5;
             this.btnClose.Text = "&Close";
             this.btnClose.UseVisualStyleBackColor = true;
@@ -125,7 +125,7 @@ namespace LDIS.App.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = AutoScaleMode.Font;
             this.CancelButton = this.btnClose;
-            this.ClientSize = new System.Drawing.Size(519, 298);
+            this.ClientSize = new System.Drawing.Size(519, 304);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnRename);

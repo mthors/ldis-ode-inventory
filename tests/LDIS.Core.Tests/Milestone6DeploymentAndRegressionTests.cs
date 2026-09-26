@@ -41,6 +41,7 @@ namespace LDIS.Core.Tests
             RunTest("Test_FreshDatabaseInitialization_CreatesDirectoryAndDatabaseFile", Test_FreshDatabaseInitialization_CreatesDirectoryAndDatabaseFile);
             RunTest("Test_ExistingDatabase_UpgradeSafety_DoesNotResetData", Test_ExistingDatabase_UpgradeSafety_DoesNotResetData);
             RunTest("Test_AssemblyVersion_MatchesReleaseVersion", Test_AssemblyVersion_MatchesReleaseVersion);
+            RunTest("Test_ItemSaveAndValidation_Workflow_PreservesAllBusinessRules", Test_ItemSaveAndValidation_Workflow_PreservesAllBusinessRules);
         }
 
         private static void RunTest(string testName, Action testAction)
@@ -201,6 +202,95 @@ namespace LDIS.Core.Tests
             var coreVersion = typeof(Item).Assembly.GetName().Version;
             Assert(coreVersion.Major == 1 && coreVersion.Minor == 0 && coreVersion.Build == 0,
                 string.Format("Expected LDIS.Core assembly version 1.0.0.x, found: {0}", coreVersion));
+        }
+
+        private void Test_ItemSaveAndValidation_Workflow_PreservesAllBusinessRules()
+        {
+            string dbPath = CreateTempDbPath();
+            try
+            {
+                var config = new DatabaseConfig(dbPath);
+                var factory = new DbConnectionFactory(config);
+                var initializer = new DatabaseInitializer(factory);
+                initializer.Initialize();
+
+                var catRepo = new CategoryRepository(factory);
+                var itemRepo = new ItemRepository(factory);
+                var itemService = new ItemService(itemRepo, catRepo);
+
+                // 1. Validate required fields: empty SKU and Name
+                var emptyItem = new Item { SKU = "", Name = "", PurchasePrice = 0, SellingPrice = 0, MinStockLevel = 0 };
+                var valEmpty = itemService.ValidateItem(emptyItem, true);
+                Assert(!valEmpty.IsValid, "Empty SKU and Name must fail validation.");
+                Assert(valEmpty.Errors.Count >= 2, "Expected at least 2 errors for empty SKU and Name.");
+
+                // 2. Validate price: negative prices rejected
+                var negPriceItem = new Item { SKU = "VALID-SKU", Name = "Valid Name", PurchasePrice = -100, SellingPrice = 500 };
+                var valNegPrice = itemService.ValidateItem(negPriceItem, true);
+                Assert(!valNegPrice.IsValid, "Negative PurchasePrice must fail validation.");
+
+                // 3. Validate controlled Gender
+                var invalidGenderItem = new Item { SKU = "VALID-SKU", Name = "Valid Name", Gender = "InvalidGender" };
+                var valGender = itemService.ValidateItem(invalidGenderItem, true);
+                Assert(!valGender.IsValid, "Invalid gender must fail validation.");
+
+                // 4. Validate MinStock: negative rejected
+                var negMinStockItem = new Item { SKU = "VALID-SKU", Name = "Valid Name", MinStockLevel = -5 };
+                var valMinStock = itemService.ValidateItem(negMinStockItem, true);
+                Assert(!valMinStock.IsValid, "Negative MinStockLevel must fail validation.");
+
+                // 5. Successful Save (New Item)
+                var validItem = new Item
+                {
+                    SKU = "TSHIRT-001",
+                    Name = "Cotton Crewneck T-Shirt",
+                    Brand = "OdeApparel",
+                    Color = "Navy Blue",
+                    Size = "L",
+                    Gender = GenderOptions.Men,
+                    PurchasePrice = 45000,
+                    SellingPrice = 85000,
+                    MinStockLevel = 5,
+                    IsActive = true
+                };
+                var valValid = itemService.ValidateItem(validItem, true);
+                Assert(valValid.IsValid, "Valid item must pass validation.");
+
+                long createdId = itemService.SaveItem(validItem);
+                Assert(createdId > 0, "Item must be saved with positive ID.");
+
+                var retrieved = itemService.GetItem(createdId);
+                Assert(retrieved != null, "Saved item must be retrievable.");
+                Assert(retrieved.SKU == "TSHIRT-001", "SKU must match.");
+                Assert(retrieved.Gender == GenderOptions.Men, "Gender must match.");
+                Assert(retrieved.CurrentStock == 0, "Initial CurrentStock must be 0.");
+
+                // 6. SKU Uniqueness check
+                var dupSkuItem = new Item
+                {
+                    SKU = "TSHIRT-001",
+                    Name = "Another Shirt with Same SKU",
+                    PurchasePrice = 50000,
+                    SellingPrice = 90000
+                };
+                var valDup = itemService.ValidateItem(dupSkuItem, true);
+                Assert(!valDup.IsValid, "Duplicate SKU must be rejected for new item.");
+
+                // 7. Update existing item preserves CurrentStock
+                retrieved.Name = "Updated Crewneck T-Shirt";
+                retrieved.SellingPrice = 89000;
+                long updatedId = itemService.SaveItem(retrieved);
+                Assert(updatedId == createdId, "Update must preserve ItemID.");
+
+                var updatedRetrieved = itemService.GetItem(createdId);
+                Assert(updatedRetrieved.Name == "Updated Crewneck T-Shirt", "Updated name must persist.");
+                Assert(updatedRetrieved.SellingPrice == 89000, "Updated price must persist.");
+                Assert(updatedRetrieved.CurrentStock == 0, "CurrentStock must remain preserved.");
+            }
+            finally
+            {
+                CleanupTempDb(dbPath);
+            }
         }
     }
 }
