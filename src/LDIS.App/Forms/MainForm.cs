@@ -17,6 +17,8 @@ namespace LDIS.App.Forms
         private readonly IItemService _itemService;
         private readonly ICategoryService _categoryService;
         private readonly IStockService _stockService;
+        private readonly IExportService _exportService;
+        private readonly IBackupService _backupService;
 
         private List<ItemListItemDto> _currentProducts = new List<ItemListItemDto>();
         private bool _isInitialLoading = true;
@@ -26,7 +28,9 @@ namespace LDIS.App.Forms
             DatabaseInitializer initializer,
             IItemService itemService,
             ICategoryService categoryService,
-            IStockService stockService)
+            IStockService stockService,
+            IExportService exportService = null,
+            IBackupService backupService = null)
         {
             if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
             if (initializer == null) throw new ArgumentNullException("initializer");
@@ -39,6 +43,8 @@ namespace LDIS.App.Forms
             _itemService = itemService;
             _categoryService = categoryService;
             _stockService = stockService;
+            _exportService = exportService ?? new ExportService();
+            _backupService = backupService ?? new BackupService(connectionFactory);
 
             InitializeComponent();
         }
@@ -627,9 +633,151 @@ namespace LDIS.App.Forms
                 }
             }
 
-            using (var form = new TransactionHistoryForm(_stockService, itemId, sku))
+            using (var form = new TransactionHistoryForm(_stockService, _exportService, itemId, sku))
             {
                 form.ShowDialog(this);
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_currentProducts == null || _currentProducts.Count == 0)
+                {
+                    MessageBox.Show(
+                        this,
+                        "There are no products to export matching the current filter criteria.",
+                        "Export Products",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                using (var sfd = new SaveFileDialog())
+                {
+                    sfd.Title = "Export Products to CSV";
+                    sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+                    sfd.FilterIndex = 1;
+                    sfd.DefaultExt = "csv";
+                    sfd.AddExtension = true;
+                    sfd.OverwritePrompt = true;
+                    sfd.RestoreDirectory = true;
+                    sfd.FileName = string.Format("products_export_{0:yyyyMMdd_HHmmss}.csv", DateTime.Now);
+
+                    if (sfd.ShowDialog(this) == DialogResult.OK)
+                    {
+                        _exportService.ExportProductsToCsv(_currentProducts, sfd.FileName);
+                        MessageBox.Show(
+                            this,
+                            string.Format("Successfully exported {0:N0} products to:\n{1}", _currentProducts.Count, sfd.FileName),
+                            "Export Completed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                }
+            }
+            catch (System.IO.IOException ioEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "The file could not be saved because it is currently in use by another program (such as Microsoft Excel) or inaccessible.\n\nDetails: " + ioEx.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (UnauthorizedAccessException authEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "Access denied to the selected location. Please choose a folder where you have write permissions (such as Documents or Desktop).\n\nDetails: " + authEx.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "An unexpected error occurred during product export:\n" + ex.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnBackup_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var sfd = new SaveFileDialog())
+                {
+                    sfd.Title = "Backup Database (Consistent Online Backup)";
+                    sfd.Filter = "SQLite Database (*.db)|*.db|All Files (*.*)|*.*";
+                    sfd.FilterIndex = 1;
+                    sfd.DefaultExt = "db";
+                    sfd.AddExtension = true;
+                    sfd.OverwritePrompt = true;
+                    sfd.RestoreDirectory = true;
+                    sfd.FileName = string.Format("inventory_backup_{0:yyyyMMdd_HHmmss}.db", DateTime.Now);
+
+                    if (sfd.ShowDialog(this) == DialogResult.OK)
+                    {
+                        _backupService.BackupDatabase(sfd.FileName);
+                        MessageBox.Show(
+                            this,
+                            string.Format("Consistent SQLite online backup completed successfully to:\n{0}", sfd.FileName),
+                            "Backup Completed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                }
+            }
+            catch (InvalidOperationException invEx)
+            {
+                MessageBox.Show(
+                    this,
+                    invEx.Message,
+                    "Backup Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (System.IO.IOException ioEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "The backup could not be written because the destination file is locked or the disk is unavailable.\n\nDetails: " + ioEx.Message,
+                    "Backup Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (UnauthorizedAccessException authEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "Access denied to the destination path. Please choose a folder with write permissions.\n\nDetails: " + authEx.Message,
+                    "Backup Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "Failed to complete database backup:\n" + ex.Message,
+                    "Backup Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

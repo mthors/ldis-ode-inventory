@@ -19,6 +19,7 @@ namespace LDIS.App.Forms
         private System.Windows.Forms.Button btnClearSearch;
         private System.Windows.Forms.Button btnNewProduct;
         private System.Windows.Forms.Button btnCategories;
+        private System.Windows.Forms.Button btnBackup;
 
         private System.Windows.Forms.Panel pnlSidebar;
         private System.Windows.Forms.Label lblFiltersTitle;
@@ -59,6 +60,7 @@ namespace LDIS.App.Forms
         private System.Windows.Forms.Button btnEditProduct;
         private System.Windows.Forms.Button btnToggleStatus;
         private System.Windows.Forms.Button btnRefresh;
+        private System.Windows.Forms.Button btnExport;
         private System.Windows.Forms.Label lblGridSummary;
         private System.Windows.Forms.ContextMenuStrip ctxProductMenu;
         private System.Windows.Forms.ToolStripMenuItem mnuStockIn;
@@ -113,6 +115,7 @@ namespace LDIS.App.Forms
             this.btnClearSearch = new System.Windows.Forms.Button();
             this.btnNewProduct = new System.Windows.Forms.Button();
             this.btnCategories = new System.Windows.Forms.Button();
+            this.btnBackup = new System.Windows.Forms.Button();
 
             this.pnlSidebar = new System.Windows.Forms.Panel();
             this.lblFiltersTitle = new System.Windows.Forms.Label();
@@ -153,6 +156,7 @@ namespace LDIS.App.Forms
             this.btnEditProduct = new System.Windows.Forms.Button();
             this.btnToggleStatus = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
+            this.btnExport = new System.Windows.Forms.Button();
             this.lblGridSummary = new System.Windows.Forms.Label();
             this.ctxProductMenu = new System.Windows.Forms.ContextMenuStrip();
             this.mnuStockIn = new System.Windows.Forms.ToolStripMenuItem();
@@ -196,6 +200,7 @@ namespace LDIS.App.Forms
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.pnlHeader.Controls.Add(this.btnBackup);
             this.pnlHeader.Controls.Add(this.btnCategories);
             this.pnlHeader.Controls.Add(this.btnNewProduct);
             this.pnlHeader.Controls.Add(this.btnClearSearch);
@@ -230,9 +235,9 @@ namespace LDIS.App.Forms
             // txtSearch
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(340, 20);
+            this.txtSearch.Location = new System.Drawing.Point(370, 20);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(260, 25);
+            this.txtSearch.Size = new System.Drawing.Size(200, 25);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
 
@@ -243,9 +248,9 @@ namespace LDIS.App.Forms
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(606, 19);
+            this.btnSearch.Location = new System.Drawing.Point(576, 19);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(65, 27);
+            this.btnSearch.Size = new System.Drawing.Size(60, 27);
             this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -258,9 +263,9 @@ namespace LDIS.App.Forms
             this.btnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearSearch.ForeColor = System.Drawing.Color.White;
-            this.btnClearSearch.Location = new System.Drawing.Point(676, 19);
+            this.btnClearSearch.Location = new System.Drawing.Point(642, 19);
             this.btnClearSearch.Name = "btnClearSearch";
-            this.btnClearSearch.Size = new System.Drawing.Size(55, 27);
+            this.btnClearSearch.Size = new System.Drawing.Size(50, 27);
             this.btnClearSearch.TabIndex = 2;
             this.btnClearSearch.Text = "Clear";
             this.btnClearSearch.UseVisualStyleBackColor = false;
@@ -273,9 +278,9 @@ namespace LDIS.App.Forms
             this.btnNewProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewProduct.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewProduct.ForeColor = System.Drawing.Color.White;
-            this.btnNewProduct.Location = new System.Drawing.Point(746, 18);
+            this.btnNewProduct.Location = new System.Drawing.Point(698, 18);
             this.btnNewProduct.Name = "btnNewProduct";
-            this.btnNewProduct.Size = new System.Drawing.Size(130, 29);
+            this.btnNewProduct.Size = new System.Drawing.Size(104, 29);
             this.btnNewProduct.TabIndex = 3;
             this.btnNewProduct.Text = "+ New Product";
             this.btnNewProduct.UseVisualStyleBackColor = false;
@@ -288,13 +293,28 @@ namespace LDIS.App.Forms
             this.btnCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategories.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCategories.ForeColor = System.Drawing.Color.White;
-            this.btnCategories.Location = new System.Drawing.Point(884, 18);
+            this.btnCategories.Location = new System.Drawing.Point(808, 18);
             this.btnCategories.Name = "btnCategories";
-            this.btnCategories.Size = new System.Drawing.Size(108, 29);
+            this.btnCategories.Size = new System.Drawing.Size(92, 29);
             this.btnCategories.TabIndex = 4;
             this.btnCategories.Text = "Categories...";
             this.btnCategories.UseVisualStyleBackColor = false;
             this.btnCategories.Click += new System.EventHandler(this.btnCategories_Click);
+
+            // btnBackup
+            this.btnBackup.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnBackup.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.btnBackup.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(90)))), ((int)(((byte)(110)))));
+            this.btnBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnBackup.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackup.ForeColor = System.Drawing.Color.White;
+            this.btnBackup.Location = new System.Drawing.Point(906, 18);
+            this.btnBackup.Name = "btnBackup";
+            this.btnBackup.Size = new System.Drawing.Size(92, 29);
+            this.btnBackup.TabIndex = 5;
+            this.btnBackup.Text = "&Backup DB...";
+            this.btnBackup.UseVisualStyleBackColor = false;
+            this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
 
             // 
             // pnlSidebar
@@ -686,6 +706,7 @@ namespace LDIS.App.Forms
             this.pnlGridToolbar.Controls.Add(this.btnEditProduct);
             this.pnlGridToolbar.Controls.Add(this.btnToggleStatus);
             this.pnlGridToolbar.Controls.Add(this.btnRefresh);
+            this.pnlGridToolbar.Controls.Add(this.btnExport);
             this.pnlGridToolbar.Controls.Add(this.lblGridSummary);
             this.pnlGridToolbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlGridToolbar.Location = new System.Drawing.Point(10, 10);
@@ -775,6 +796,15 @@ namespace LDIS.App.Forms
             this.btnRefresh.Text = "&Refresh [F5]";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+
+            // btnExport
+            this.btnExport.Location = new System.Drawing.Point(658, 4);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(105, 28);
+            this.btnExport.TabIndex = 7;
+            this.btnExport.Text = "&Export CSV...";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 
             // lblGridSummary
             this.lblGridSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));

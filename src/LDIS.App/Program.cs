@@ -52,8 +52,10 @@ namespace LDIS.App
                 var categoryService = new LDIS.Core.Services.CategoryService(categoryRepository);
                 var itemService = new LDIS.Core.Services.ItemService(itemRepository, categoryRepository);
                 var stockService = new LDIS.Core.Services.StockService(transactionRepository, itemRepository);
+                var exportService = new LDIS.Core.Services.ExportService();
+                var backupService = new LDIS.Core.Services.BackupService(connectionFactory);
 
-                Application.Run(new MainForm(connectionFactory, initializer, itemService, categoryService, stockService));
+                Application.Run(new MainForm(connectionFactory, initializer, itemService, categoryService, stockService, exportService, backupService));
             }
             catch (Exception ex)
             {

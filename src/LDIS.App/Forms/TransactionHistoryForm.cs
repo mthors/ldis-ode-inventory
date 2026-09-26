@@ -11,6 +11,7 @@ namespace LDIS.App.Forms
     public class TransactionHistoryForm : Form
     {
         private readonly IStockService _stockService;
+        private readonly IExportService _exportService;
         private readonly long? _filterItemId;
         private readonly string _filterItemSku;
 
@@ -31,6 +32,7 @@ namespace LDIS.App.Forms
         private DateTimePicker dtpEnd;
         private Button btnApplyFilters;
         private Button btnResetFilters;
+        private Button btnExport;
         private Button btnRefresh;
 
         private DataGridView dgvTransactions;
@@ -56,10 +58,16 @@ namespace LDIS.App.Forms
         private List<TransactionListItemDto> _currentTransactions = new List<TransactionListItemDto>();
 
         public TransactionHistoryForm(IStockService stockService, long? itemId = null, string itemSku = null)
+            : this(stockService, new ExportService(), itemId, itemSku)
+        {
+        }
+
+        public TransactionHistoryForm(IStockService stockService, IExportService exportService, long? itemId = null, string itemSku = null)
         {
             if (stockService == null) throw new ArgumentNullException("stockService");
 
             _stockService = stockService;
+            _exportService = exportService ?? new ExportService();
             _filterItemId = itemId;
             _filterItemSku = itemSku;
 
@@ -84,6 +92,7 @@ namespace LDIS.App.Forms
             this.dtpEnd = new DateTimePicker();
             this.btnApplyFilters = new Button();
             this.btnResetFilters = new Button();
+            this.btnExport = new Button();
             this.btnRefresh = new Button();
 
             this.dgvTransactions = new DataGridView();
@@ -213,6 +222,12 @@ namespace LDIS.App.Forms
             this.btnResetFilters.Size = new Size(90, 26);
             this.btnResetFilters.Click += btnResetFilters_Click;
 
+            this.btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            this.btnExport.Text = "Export &CSV...";
+            this.btnExport.Location = new Point(870, 8);
+            this.btnExport.Size = new Size(100, 26);
+            this.btnExport.Click += btnExport_Click;
+
             this.btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.btnRefresh.Text = "Refresh (F5)";
             this.btnRefresh.Location = new Point(980, 8);
@@ -226,6 +241,7 @@ namespace LDIS.App.Forms
             this.pnlFilterBar.Controls.Add(this.dtpStart);
             this.pnlFilterBar.Controls.Add(this.dtpEnd);
             this.pnlFilterBar.Controls.Add(this.btnResetFilters);
+            this.pnlFilterBar.Controls.Add(this.btnExport);
             this.pnlFilterBar.Controls.Add(this.btnRefresh);
 
             // DataGridView
@@ -542,6 +558,78 @@ namespace LDIS.App.Forms
                         }
                     }
                 }
+            }
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_currentTransactions == null || _currentTransactions.Count == 0)
+                {
+                    MessageBox.Show(
+                        this,
+                        "There are no transactions to export matching the current criteria.",
+                        "Export Transactions",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                    return;
+                }
+
+                using (var sfd = new SaveFileDialog())
+                {
+                    sfd.Title = "Export Transactions to CSV";
+                    sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+                    sfd.FilterIndex = 1;
+                    sfd.DefaultExt = "csv";
+                    sfd.AddExtension = true;
+                    sfd.OverwritePrompt = true;
+                    sfd.RestoreDirectory = true;
+                    sfd.FileName = string.Format("transactions_export_{0:yyyyMMdd_HHmmss}.csv", DateTime.Now);
+
+                    if (sfd.ShowDialog(this) == DialogResult.OK)
+                    {
+                        _exportService.ExportTransactionsToCsv(_currentTransactions, sfd.FileName);
+                        MessageBox.Show(
+                            this,
+                            string.Format("Successfully exported {0:N0} transactions to:\n{1}", _currentTransactions.Count, sfd.FileName),
+                            "Export Completed",
+                            MessageBoxButtons.OK,
+                            MessageBoxIcon.Information
+                        );
+                    }
+                }
+            }
+            catch (System.IO.IOException ioEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "The file could not be saved because it is currently in use by another program (such as Microsoft Excel) or inaccessible.\n\nDetails: " + ioEx.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (UnauthorizedAccessException authEx)
+            {
+                MessageBox.Show(
+                    this,
+                    "Access denied to the selected location. Please choose a folder where you have write permissions (such as Documents or Desktop).\n\nDetails: " + authEx.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "An unexpected error occurred during transaction export:\n" + ex.Message,
+                    "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
             }
         }
     }

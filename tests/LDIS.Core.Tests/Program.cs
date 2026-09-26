@@ -33,9 +33,14 @@ namespace LDIS.Core.Tests
                 m4Tests.RunAllTests();
 
                 Console.WriteLine();
+                Console.WriteLine("--- Milestone 5 Export & Backup Tests ---");
+                var m5Tests = new Milestone5ExportAndBackupTests();
+                m5Tests.RunAllTests();
+
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1, 2, 3 & 4 TESTS PASSED");
+                Console.WriteLine(" ALL MILESTONE 1, 2, 3, 4 & 5 TESTS PASSED");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;
