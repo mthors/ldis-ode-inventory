@@ -16,6 +16,7 @@ namespace LDIS.App.Forms
         private readonly DatabaseInitializer _initializer;
         private readonly IItemService _itemService;
         private readonly ICategoryService _categoryService;
+        private readonly IStockService _stockService;
 
         private List<ItemListItemDto> _currentProducts = new List<ItemListItemDto>();
         private bool _isInitialLoading = true;
@@ -24,17 +25,20 @@ namespace LDIS.App.Forms
             DbConnectionFactory connectionFactory,
             DatabaseInitializer initializer,
             IItemService itemService,
-            ICategoryService categoryService)
+            ICategoryService categoryService,
+            IStockService stockService)
         {
             if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
             if (initializer == null) throw new ArgumentNullException("initializer");
             if (itemService == null) throw new ArgumentNullException("itemService");
             if (categoryService == null) throw new ArgumentNullException("categoryService");
+            if (stockService == null) throw new ArgumentNullException("stockService");
 
             _connectionFactory = connectionFactory;
             _initializer = initializer;
             _itemService = itemService;
             _categoryService = categoryService;
+            _stockService = stockService;
 
             InitializeComponent();
         }
@@ -76,6 +80,24 @@ namespace LDIS.App.Forms
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 btnNewProduct.PerformClick();
+            }
+            else if (e.Control && e.KeyCode == Keys.I)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnStockIn.PerformClick();
+            }
+            else if (e.Control && e.KeyCode == Keys.O)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnStockOut.PerformClick();
+            }
+            else if (e.Control && e.KeyCode == Keys.T)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnTransactions.PerformClick();
             }
             else if (e.Control && e.KeyCode == Keys.F)
             {
@@ -249,24 +271,39 @@ namespace LDIS.App.Forms
         {
             var selected = GetSelectedProduct();
             bool hasSelection = (selected != null);
+            bool isActiveProduct = (hasSelection && selected.IsActive);
+
+            btnStockIn.Enabled = isActiveProduct;
+            btnStockOut.Enabled = (isActiveProduct && selected.CurrentStock > 0);
+            btnStockAdjust.Enabled = isActiveProduct;
+
+            mnuStockIn.Enabled = isActiveProduct;
+            mnuStockOut.Enabled = (isActiveProduct && selected.CurrentStock > 0);
+            mnuStockAdjust.Enabled = isActiveProduct;
+            mnuViewHistory.Enabled = hasSelection;
 
             btnEditProduct.Enabled = hasSelection;
+            mnuEditProduct.Enabled = hasSelection;
             btnToggleStatus.Enabled = hasSelection;
+            mnuToggleStatus.Enabled = hasSelection;
 
             if (hasSelection)
             {
                 if (selected.IsActive)
                 {
                     btnToggleStatus.Text = "&Deactivate";
+                    mnuToggleStatus.Text = "&Deactivate Product";
                 }
                 else
                 {
                     btnToggleStatus.Text = "&Reactivate";
+                    mnuToggleStatus.Text = "&Reactivate Product";
                 }
             }
             else
             {
                 btnToggleStatus.Text = "&Deactivate";
+                mnuToggleStatus.Text = "&Deactivate Product";
             }
         }
 
@@ -436,6 +473,61 @@ namespace LDIS.App.Forms
             }
             LoadCategoryFilter();
             RefreshProductList();
+        }
+
+        private void btnStockIn_Click(object sender, EventArgs e)
+        {
+            OpenStockOperation("IN");
+        }
+
+        private void btnStockOut_Click(object sender, EventArgs e)
+        {
+            OpenStockOperation("OUT");
+        }
+
+        private void btnStockAdjust_Click(object sender, EventArgs e)
+        {
+            OpenStockOperation("ADJUSTMENT");
+        }
+
+        private void OpenStockOperation(string operationType)
+        {
+            long itemId = 0;
+            var selected = GetSelectedProduct();
+            if (selected != null)
+            {
+                itemId = selected.ItemID;
+            }
+
+            using (var form = new StockOperationForm(_stockService, _itemService, itemId, operationType))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    RefreshProductList();
+                }
+            }
+        }
+
+        private void btnTransactions_Click(object sender, EventArgs e)
+        {
+            long? itemId = null;
+            string sku = null;
+
+            // If triggered from item context menu, filter to that item
+            if (sender == mnuViewHistory)
+            {
+                var selected = GetSelectedProduct();
+                if (selected != null)
+                {
+                    itemId = selected.ItemID;
+                    sku = selected.SKU;
+                }
+            }
+
+            using (var form = new TransactionHistoryForm(_stockService, itemId, sku))
+            {
+                form.ShowDialog(this);
+            }
         }
     }
 }

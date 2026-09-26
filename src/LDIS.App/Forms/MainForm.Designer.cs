@@ -30,10 +30,23 @@ namespace LDIS.App.Forms
 
         private System.Windows.Forms.Panel pnlMainContent;
         private System.Windows.Forms.Panel pnlGridToolbar;
+        private System.Windows.Forms.Button btnStockIn;
+        private System.Windows.Forms.Button btnStockOut;
+        private System.Windows.Forms.Button btnStockAdjust;
+        private System.Windows.Forms.Button btnTransactions;
         private System.Windows.Forms.Button btnEditProduct;
         private System.Windows.Forms.Button btnToggleStatus;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Label lblGridSummary;
+        private System.Windows.Forms.ContextMenuStrip ctxProductMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuStockIn;
+        private System.Windows.Forms.ToolStripMenuItem mnuStockOut;
+        private System.Windows.Forms.ToolStripMenuItem mnuStockAdjust;
+        private System.Windows.Forms.ToolStripSeparator mnuSeparator1;
+        private System.Windows.Forms.ToolStripMenuItem mnuViewHistory;
+        private System.Windows.Forms.ToolStripSeparator mnuSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem mnuEditProduct;
+        private System.Windows.Forms.ToolStripMenuItem mnuToggleStatus;
         private System.Windows.Forms.DataGridView dgvProducts;
 
         private System.Windows.Forms.DataGridViewTextBoxColumn colSKU;
@@ -89,10 +102,23 @@ namespace LDIS.App.Forms
 
             this.pnlMainContent = new System.Windows.Forms.Panel();
             this.pnlGridToolbar = new System.Windows.Forms.Panel();
+            this.btnStockIn = new System.Windows.Forms.Button();
+            this.btnStockOut = new System.Windows.Forms.Button();
+            this.btnStockAdjust = new System.Windows.Forms.Button();
+            this.btnTransactions = new System.Windows.Forms.Button();
             this.btnEditProduct = new System.Windows.Forms.Button();
             this.btnToggleStatus = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.lblGridSummary = new System.Windows.Forms.Label();
+            this.ctxProductMenu = new System.Windows.Forms.ContextMenuStrip();
+            this.mnuStockIn = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStockOut = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuStockAdjust = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuViewHistory = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuEditProduct = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuToggleStatus = new System.Windows.Forms.ToolStripMenuItem();
             this.dgvProducts = new System.Windows.Forms.DataGridView();
 
             this.colSKU = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -306,39 +332,99 @@ namespace LDIS.App.Forms
             this.pnlMainContent.TabIndex = 2;
 
             // pnlGridToolbar
-            this.pnlGridToolbar.Controls.Add(this.lblGridSummary);
-            this.pnlGridToolbar.Controls.Add(this.btnRefresh);
-            this.pnlGridToolbar.Controls.Add(this.btnToggleStatus);
+            this.pnlGridToolbar.Controls.Add(this.btnStockIn);
+            this.pnlGridToolbar.Controls.Add(this.btnStockOut);
+            this.pnlGridToolbar.Controls.Add(this.btnStockAdjust);
+            this.pnlGridToolbar.Controls.Add(this.btnTransactions);
             this.pnlGridToolbar.Controls.Add(this.btnEditProduct);
+            this.pnlGridToolbar.Controls.Add(this.btnToggleStatus);
+            this.pnlGridToolbar.Controls.Add(this.btnRefresh);
+            this.pnlGridToolbar.Controls.Add(this.lblGridSummary);
             this.pnlGridToolbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlGridToolbar.Location = new System.Drawing.Point(10, 10);
             this.pnlGridToolbar.Name = "pnlGridToolbar";
             this.pnlGridToolbar.Size = new System.Drawing.Size(778, 38);
             this.pnlGridToolbar.TabIndex = 0;
 
+            // btnStockIn
+            this.btnStockIn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(46)))), ((int)(((byte)(204)))), ((int)(((byte)(113)))));
+            this.btnStockIn.FlatAppearance.BorderSize = 0;
+            this.btnStockIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockIn.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStockIn.ForeColor = System.Drawing.Color.White;
+            this.btnStockIn.Location = new System.Drawing.Point(0, 4);
+            this.btnStockIn.Name = "btnStockIn";
+            this.btnStockIn.Size = new System.Drawing.Size(92, 28);
+            this.btnStockIn.TabIndex = 0;
+            this.btnStockIn.Text = "+ Stock &IN";
+            this.btnStockIn.UseVisualStyleBackColor = false;
+            this.btnStockIn.Click += new System.EventHandler(this.btnStockIn_Click);
+
+            // btnStockOut
+            this.btnStockOut.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(126)))), ((int)(((byte)(34)))));
+            this.btnStockOut.FlatAppearance.BorderSize = 0;
+            this.btnStockOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockOut.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStockOut.ForeColor = System.Drawing.Color.White;
+            this.btnStockOut.Location = new System.Drawing.Point(97, 4);
+            this.btnStockOut.Name = "btnStockOut";
+            this.btnStockOut.Size = new System.Drawing.Size(98, 28);
+            this.btnStockOut.TabIndex = 1;
+            this.btnStockOut.Text = "- Stock &OUT";
+            this.btnStockOut.UseVisualStyleBackColor = false;
+            this.btnStockOut.Click += new System.EventHandler(this.btnStockOut_Click);
+
+            // btnStockAdjust
+            this.btnStockAdjust.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(142)))), ((int)(((byte)(68)))), ((int)(((byte)(173)))));
+            this.btnStockAdjust.FlatAppearance.BorderSize = 0;
+            this.btnStockAdjust.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnStockAdjust.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnStockAdjust.ForeColor = System.Drawing.Color.White;
+            this.btnStockAdjust.Location = new System.Drawing.Point(200, 4);
+            this.btnStockAdjust.Name = "btnStockAdjust";
+            this.btnStockAdjust.Size = new System.Drawing.Size(80, 28);
+            this.btnStockAdjust.TabIndex = 2;
+            this.btnStockAdjust.Text = "&Adjust...";
+            this.btnStockAdjust.UseVisualStyleBackColor = false;
+            this.btnStockAdjust.Click += new System.EventHandler(this.btnStockAdjust_Click);
+
+            // btnTransactions
+            this.btnTransactions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(152)))), ((int)(((byte)(219)))));
+            this.btnTransactions.FlatAppearance.BorderSize = 0;
+            this.btnTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransactions.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTransactions.ForeColor = System.Drawing.Color.White;
+            this.btnTransactions.Location = new System.Drawing.Point(285, 4);
+            this.btnTransactions.Name = "btnTransactions";
+            this.btnTransactions.Size = new System.Drawing.Size(85, 28);
+            this.btnTransactions.TabIndex = 3;
+            this.btnTransactions.Text = "&History...";
+            this.btnTransactions.UseVisualStyleBackColor = false;
+            this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
+
             // btnEditProduct
-            this.btnEditProduct.Location = new System.Drawing.Point(0, 4);
+            this.btnEditProduct.Location = new System.Drawing.Point(375, 4);
             this.btnEditProduct.Name = "btnEditProduct";
-            this.btnEditProduct.Size = new System.Drawing.Size(95, 28);
-            this.btnEditProduct.TabIndex = 0;
+            this.btnEditProduct.Size = new System.Drawing.Size(88, 28);
+            this.btnEditProduct.TabIndex = 4;
             this.btnEditProduct.Text = "&Edit Product";
             this.btnEditProduct.UseVisualStyleBackColor = true;
             this.btnEditProduct.Click += new System.EventHandler(this.btnEditProduct_Click);
 
             // btnToggleStatus
-            this.btnToggleStatus.Location = new System.Drawing.Point(103, 4);
+            this.btnToggleStatus.Location = new System.Drawing.Point(468, 4);
             this.btnToggleStatus.Name = "btnToggleStatus";
-            this.btnToggleStatus.Size = new System.Drawing.Size(120, 28);
-            this.btnToggleStatus.TabIndex = 1;
+            this.btnToggleStatus.Size = new System.Drawing.Size(95, 28);
+            this.btnToggleStatus.TabIndex = 5;
             this.btnToggleStatus.Text = "&Deactivate";
             this.btnToggleStatus.UseVisualStyleBackColor = true;
             this.btnToggleStatus.Click += new System.EventHandler(this.btnToggleStatus_Click);
 
             // btnRefresh
-            this.btnRefresh.Location = new System.Drawing.Point(231, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(568, 4);
             this.btnRefresh.Name = "btnRefresh";
             this.btnRefresh.Size = new System.Drawing.Size(85, 28);
-            this.btnRefresh.TabIndex = 2;
+            this.btnRefresh.TabIndex = 6;
             this.btnRefresh.Text = "&Refresh [F5]";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
@@ -347,11 +433,51 @@ namespace LDIS.App.Forms
             this.lblGridSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGridSummary.AutoSize = true;
             this.lblGridSummary.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblGridSummary.Location = new System.Drawing.Point(580, 11);
+            this.lblGridSummary.Location = new System.Drawing.Point(658, 11);
             this.lblGridSummary.Name = "lblGridSummary";
-            this.lblGridSummary.Size = new System.Drawing.Size(180, 15);
-            this.lblGridSummary.Text = "Double-click a row to edit product";
+            this.lblGridSummary.Size = new System.Drawing.Size(115, 15);
+            this.lblGridSummary.Text = "Right-click for menu";
             this.lblGridSummary.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+
+            // ctxProductMenu
+            this.ctxProductMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+                this.mnuStockIn,
+                this.mnuStockOut,
+                this.mnuStockAdjust,
+                this.mnuSeparator1,
+                this.mnuViewHistory,
+                this.mnuSeparator2,
+                this.mnuEditProduct,
+                this.mnuToggleStatus
+            });
+            this.ctxProductMenu.Name = "ctxProductMenu";
+            this.ctxProductMenu.Size = new System.Drawing.Size(215, 170);
+
+            // mnuStockIn
+            this.mnuStockIn.Text = "Stock &IN... (Ctrl+I)";
+            this.mnuStockIn.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.mnuStockIn.Click += new System.EventHandler(this.btnStockIn_Click);
+
+            // mnuStockOut
+            this.mnuStockOut.Text = "Stock &OUT... (Ctrl+O)";
+            this.mnuStockOut.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.mnuStockOut.Click += new System.EventHandler(this.btnStockOut_Click);
+
+            // mnuStockAdjust
+            this.mnuStockAdjust.Text = "Stock &Adjustment...";
+            this.mnuStockAdjust.Click += new System.EventHandler(this.btnStockAdjust_Click);
+
+            // mnuViewHistory
+            this.mnuViewHistory.Text = "View &Transaction History... (Ctrl+T)";
+            this.mnuViewHistory.Click += new System.EventHandler(this.btnTransactions_Click);
+
+            // mnuEditProduct
+            this.mnuEditProduct.Text = "&Edit Product Details...";
+            this.mnuEditProduct.Click += new System.EventHandler(this.btnEditProduct_Click);
+
+            // mnuToggleStatus
+            this.mnuToggleStatus.Text = "&Deactivate Product";
+            this.mnuToggleStatus.Click += new System.EventHandler(this.btnToggleStatus_Click);
 
             // dgvProducts
             this.dgvProducts.AllowUserToAddRows = false;
@@ -373,6 +499,7 @@ namespace LDIS.App.Forms
             this.colMinStock,
             this.colCurrentStock,
             this.colStatus});
+            this.dgvProducts.ContextMenuStrip = this.ctxProductMenu;
             this.dgvProducts.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvProducts.Location = new System.Drawing.Point(10, 48);
             this.dgvProducts.MultiSelect = false;

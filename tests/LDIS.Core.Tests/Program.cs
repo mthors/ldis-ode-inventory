@@ -23,9 +23,14 @@ namespace LDIS.Core.Tests
                 m2Tests.RunAllTests();
 
                 Console.WriteLine();
+                Console.WriteLine("--- Milestone 3 Stock Operations Tests ---");
+                var m3Tests = new Milestone3StockOperationTests();
+                m3Tests.RunAllTests();
+
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1 & 2 TESTS PASSED SUCCESSFULLY");
+                Console.WriteLine(" ALL MILESTONE 1, 2 & 3 TESTS PASSED SUCCESSFULLY");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;
