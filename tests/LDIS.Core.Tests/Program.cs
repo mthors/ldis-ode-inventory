@@ -13,13 +13,19 @@ namespace LDIS.Core.Tests
 
             try
             {
-                var tests = new DatabaseInitializationTests();
-                tests.RunAllTests();
+                Console.WriteLine("--- Milestone 1 Tests ---");
+                var m1Tests = new DatabaseInitializationTests();
+                m1Tests.RunAllTests();
+
+                Console.WriteLine();
+                Console.WriteLine("--- Milestone 2 Product Management Tests ---");
+                var m2Tests = new Milestone2ProductTests();
+                m2Tests.RunAllTests();
 
                 Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1 TESTS PASSED SUCCESSFULLY");
+                Console.WriteLine(" ALL MILESTONE 1 & 2 TESTS PASSED SUCCESSFULLY");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;

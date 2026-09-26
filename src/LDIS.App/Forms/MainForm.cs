@@ -1,7 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using LDIS.Core.Data;
+using LDIS.Core.DTOs;
+using LDIS.Core.Models;
+using LDIS.Core.Services;
 
 namespace LDIS.App.Forms
 {
@@ -9,20 +14,27 @@ namespace LDIS.App.Forms
     {
         private readonly DbConnectionFactory _connectionFactory;
         private readonly DatabaseInitializer _initializer;
+        private readonly IItemService _itemService;
+        private readonly ICategoryService _categoryService;
 
-        public MainForm(DbConnectionFactory connectionFactory, DatabaseInitializer initializer)
+        private List<ItemListItemDto> _currentProducts = new List<ItemListItemDto>();
+        private bool _isInitialLoading = true;
+
+        public MainForm(
+            DbConnectionFactory connectionFactory,
+            DatabaseInitializer initializer,
+            IItemService itemService,
+            ICategoryService categoryService)
         {
-            if (connectionFactory == null)
-            {
-                throw new ArgumentNullException("connectionFactory");
-            }
-            if (initializer == null)
-            {
-                throw new ArgumentNullException("initializer");
-            }
+            if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
+            if (initializer == null) throw new ArgumentNullException("initializer");
+            if (itemService == null) throw new ArgumentNullException("itemService");
+            if (categoryService == null) throw new ArgumentNullException("categoryService");
 
             _connectionFactory = connectionFactory;
             _initializer = initializer;
+            _itemService = itemService;
+            _categoryService = categoryService;
 
             InitializeComponent();
         }
@@ -32,37 +44,398 @@ namespace LDIS.App.Forms
             try
             {
                 var config = _connectionFactory.Config;
-                lblDbPath.Text = config.DatabaseFilePath;
-                lblMode.Text = "Storage Mode: " + (config.IsPortableMode ? "Portable (Application Directory)" : "Standard (AppData)");
+                lblDbPath.Text = string.Format("DB: {0} ({1})",
+                    config.DatabaseFilePath,
+                    config.IsPortableMode ? "Portable" : "Standard");
 
-                int version = _initializer.GetCurrentSchemaVersion();
-                lblSchemaVersion.Text = string.Format("Database Schema Version: {0} (Ready)", version);
+                // Enable double buffering for smooth DataGridView scrolling
+                typeof(DataGridView).InvokeMember(
+                    "DoubleBuffered",
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.SetProperty,
+                    null,
+                    dgvProducts,
+                    new object[] { true }
+                );
 
-                // Test an active query
-                using (var conn = _connectionFactory.CreateOpenConnection())
-                using (var cmd = conn.CreateCommand())
-                {
-                    cmd.CommandText = "SELECT COUNT(*) FROM sqlite_master WHERE type='table';";
-                    var tableCount = Convert.ToInt32(cmd.ExecuteScalar());
+                LoadCategoryFilter();
+                cboFilterStatus.SelectedIndex = 0; // Active Only
 
-                    lblConnectionState.Text = string.Format("Connection: Active & Verified ({0} system/user tables present)", tableCount);
-                    lblConnectionState.ForeColor = Color.DarkGreen;
-                }
-
-                lblStatus.Text = "System Status: Foundation Ready";
+                _isInitialLoading = false;
+                RefreshProductList();
             }
             catch (Exception ex)
             {
-                lblConnectionState.Text = "Connection Error: " + ex.Message;
-                lblConnectionState.ForeColor = Color.DarkRed;
-                lblStatus.Text = "System Status: Initialization Error";
-                MessageBox.Show(
-                    "Failed to verify database connection:\n" + ex.Message,
-                    "Database Error",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error
-                );
+                MessageBox.Show("Error initializing main screen:\n" + ex.Message, "Startup Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.N)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnNewProduct.PerformClick();
+            }
+            else if (e.Control && e.KeyCode == Keys.F)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                txtSearch.Focus();
+                txtSearch.SelectAll();
+            }
+            else if (e.KeyCode == Keys.F5)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnRefresh.PerformClick();
+            }
+        }
+
+        private class CategoryFilterItem
+        {
+            public long? CategoryID { get; set; }
+            public string Name { get; set; }
+
+            public override string ToString()
+            {
+                return Name;
+            }
+        }
+
+        private void LoadCategoryFilter()
+        {
+            long? selectedId = null;
+            var current = cboFilterCategory.SelectedItem as CategoryFilterItem;
+            if (current != null)
+            {
+                selectedId = current.CategoryID;
+            }
+
+            cboFilterCategory.BeginUpdate();
+            cboFilterCategory.Items.Clear();
+
+            cboFilterCategory.Items.Add(new CategoryFilterItem { CategoryID = null, Name = "All Categories" });
+
+            try
+            {
+                var categories = _categoryService.GetAllCategories();
+                CategoryFilterItem toSelect = null;
+
+                foreach (var cat in categories)
+                {
+                    var item = new CategoryFilterItem { CategoryID = cat.CategoryID, Name = cat.CategoryName };
+                    cboFilterCategory.Items.Add(item);
+
+                    if (selectedId.HasValue && cat.CategoryID == selectedId.Value)
+                    {
+                        toSelect = item;
+                    }
+                }
+
+                if (toSelect != null)
+                {
+                    cboFilterCategory.SelectedItem = toSelect;
+                }
+                else
+                {
+                    cboFilterCategory.SelectedIndex = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Failed to load categories: " + ex.Message;
+            }
+            finally
+            {
+                cboFilterCategory.EndUpdate();
+            }
+        }
+
+        private void RefreshProductList()
+        {
+            if (_isInitialLoading) return;
+
+            try
+            {
+                lblStatus.Text = "Loading products...";
+
+                var criteria = new ItemSearchCriteria
+                {
+                    SearchText = txtSearch.Text.Trim()
+                };
+
+                var catItem = cboFilterCategory.SelectedItem as CategoryFilterItem;
+                if (catItem != null && catItem.CategoryID.HasValue)
+                {
+                    criteria.CategoryID = catItem.CategoryID.Value;
+                }
+
+                // Status filter
+                int statusIndex = cboFilterStatus.SelectedIndex;
+                if (statusIndex == 0)
+                {
+                    criteria.ActiveStatus = ActiveFilterStatus.ActiveOnly;
+                }
+                else if (statusIndex == 1)
+                {
+                    criteria.ActiveStatus = ActiveFilterStatus.InactiveOnly;
+                }
+                else
+                {
+                    criteria.ActiveStatus = ActiveFilterStatus.All;
+                }
+
+                _currentProducts = _itemService.SearchItems(criteria).ToList();
+
+                // Preserve selected item if possible
+                long? previousSelectedId = GetSelectedProductId();
+
+                dgvProducts.DataSource = null;
+                dgvProducts.DataSource = _currentProducts;
+
+                if (previousSelectedId.HasValue)
+                {
+                    for (int i = 0; i < dgvProducts.Rows.Count; i++)
+                    {
+                        var rowItem = dgvProducts.Rows[i].DataBoundItem as ItemListItemDto;
+                        if (rowItem != null && rowItem.ItemID == previousSelectedId.Value)
+                        {
+                            dgvProducts.Rows[i].Selected = true;
+                            break;
+                        }
+                    }
+                }
+
+                UpdateStatusSummary();
+                UpdateActionButtons();
+
+                lblStatus.Text = "Ready";
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Error loading products: " + ex.Message;
+                MessageBox.Show("Failed to load products:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void UpdateStatusSummary()
+        {
+            int total = _currentProducts.Count;
+            int lowStock = _currentProducts.Count(p => p.CurrentStock > 0 && p.CurrentStock <= p.MinStockLevel);
+            int outOfStock = _currentProducts.Count(p => p.CurrentStock == 0);
+
+            lblTotalProducts.Text = string.Format("Total Products: {0:N0}", total);
+            lblLowStock.Text = string.Format("Low Stock: {0:N0}", lowStock);
+            lblOutOfStock.Text = string.Format("Out of Stock: {0:N0}", outOfStock);
+        }
+
+        private ItemListItemDto GetSelectedProduct()
+        {
+            if (dgvProducts.SelectedRows.Count > 0)
+            {
+                return dgvProducts.SelectedRows[0].DataBoundItem as ItemListItemDto;
+            }
+            return null;
+        }
+
+        private long? GetSelectedProductId()
+        {
+            var item = GetSelectedProduct();
+            return item != null ? (long?)item.ItemID : null;
+        }
+
+        private void UpdateActionButtons()
+        {
+            var selected = GetSelectedProduct();
+            bool hasSelection = (selected != null);
+
+            btnEditProduct.Enabled = hasSelection;
+            btnToggleStatus.Enabled = hasSelection;
+
+            if (hasSelection)
+            {
+                if (selected.IsActive)
+                {
+                    btnToggleStatus.Text = "&Deactivate";
+                }
+                else
+                {
+                    btnToggleStatus.Text = "&Reactivate";
+                }
+            }
+            else
+            {
+                btnToggleStatus.Text = "&Deactivate";
+            }
+        }
+
+        private void dgvProducts_SelectionChanged(object sender, EventArgs e)
+        {
+            UpdateActionButtons();
+        }
+
+        private void dgvProducts_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                EditSelectedProduct();
+            }
+        }
+
+        private void dgvProducts_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex >= 0 && e.RowIndex < dgvProducts.Rows.Count)
+            {
+                var item = dgvProducts.Rows[e.RowIndex].DataBoundItem as ItemListItemDto;
+                if (item != null && !item.IsActive)
+                {
+                    e.CellStyle.ForeColor = Color.DarkGray;
+                    e.CellStyle.Font = new Font(dgvProducts.Font, FontStyle.Italic);
+                }
+            }
+        }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            RefreshProductList();
+        }
+
+        private void btnClearSearch_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = string.Empty;
+            RefreshProductList();
+            txtSearch.Focus();
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                RefreshProductList();
+            }
+        }
+
+        private void Filter_Changed(object sender, EventArgs e)
+        {
+            RefreshProductList();
+        }
+
+        private void btnResetFilters_Click(object sender, EventArgs e)
+        {
+            txtSearch.Text = string.Empty;
+            cboFilterCategory.SelectedIndex = 0;
+            cboFilterStatus.SelectedIndex = 0; // Active Only
+            RefreshProductList();
+        }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadCategoryFilter();
+            RefreshProductList();
+        }
+
+        private void btnNewProduct_Click(object sender, EventArgs e)
+        {
+            using (var form = new ItemEditForm(_itemService, _categoryService, 0))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    RefreshProductList();
+
+                    // Select newly created item
+                    if (form.SavedItem != null)
+                    {
+                        for (int i = 0; i < dgvProducts.Rows.Count; i++)
+                        {
+                            var rowItem = dgvProducts.Rows[i].DataBoundItem as ItemListItemDto;
+                            if (rowItem != null && rowItem.ItemID == form.SavedItem.ItemID)
+                            {
+                                dgvProducts.Rows[i].Selected = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnEditProduct_Click(object sender, EventArgs e)
+        {
+            EditSelectedProduct();
+        }
+
+        private void EditSelectedProduct()
+        {
+            var selected = GetSelectedProduct();
+            if (selected == null)
+            {
+                return;
+            }
+
+            using (var form = new ItemEditForm(_itemService, _categoryService, selected.ItemID))
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    RefreshProductList();
+                }
+            }
+        }
+
+        private void btnToggleStatus_Click(object sender, EventArgs e)
+        {
+            var selected = GetSelectedProduct();
+            if (selected == null)
+            {
+                return;
+            }
+
+            if (selected.IsActive)
+            {
+                var confirm = MessageBox.Show(
+                    string.Format("Are you sure you want to deactivate product:\n[{0}] {1}?", selected.SKU, selected.Name),
+                    "Confirm Deactivation",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (confirm == DialogResult.Yes)
+                {
+                    try
+                    {
+                        _itemService.DeactivateItem(selected.ItemID);
+                        RefreshProductList();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Failed to deactivate product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            else
+            {
+                try
+                {
+                    _itemService.ActivateItem(selected.ItemID);
+                    RefreshProductList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Failed to reactivate product: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void btnCategories_Click(object sender, EventArgs e)
+        {
+            using (var form = new CategoryManagementForm(_categoryService))
+            {
+                form.ShowDialog(this);
+            }
+            LoadCategoryFilter();
+            RefreshProductList();
         }
     }
 }

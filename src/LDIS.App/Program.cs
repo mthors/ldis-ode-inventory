@@ -44,7 +44,13 @@ namespace LDIS.App
 
                 initializer.Initialize();
 
-                Application.Run(new MainForm(connectionFactory, initializer));
+                // Initialize repositories and services
+                var categoryRepository = new LDIS.Core.Data.Repositories.CategoryRepository(connectionFactory);
+                var itemRepository = new LDIS.Core.Data.Repositories.ItemRepository(connectionFactory);
+                var categoryService = new LDIS.Core.Services.CategoryService(categoryRepository);
+                var itemService = new LDIS.Core.Services.ItemService(itemRepository, categoryRepository);
+
+                Application.Run(new MainForm(connectionFactory, initializer, itemService, categoryService));
             }
             catch (Exception ex)
             {
