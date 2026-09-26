@@ -17,3 +17,8 @@ packages/
 *.db-shm
 *.db-wal
 database/*.db
+
+## Release Distribution Packages
+dist/
+publish/
+*.zip

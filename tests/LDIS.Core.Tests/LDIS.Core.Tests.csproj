@@ -48,6 +48,7 @@
     <Compile Include="Milestone3StockOperationTests.cs" />
     <Compile Include="Milestone4DashboardAndFilterTests.cs" />
     <Compile Include="Milestone5ExportAndBackupTests.cs" />
+    <Compile Include="Milestone6DeploymentAndRegressionTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

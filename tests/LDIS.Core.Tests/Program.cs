@@ -38,9 +38,14 @@ namespace LDIS.Core.Tests
                 m5Tests.RunAllTests();
 
                 Console.WriteLine();
+                Console.WriteLine("--- Milestone 6 Deployment & Regression Tests ---");
+                var m6Tests = new Milestone6DeploymentAndRegressionTests();
+                m6Tests.RunAllTests();
+
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1, 2, 3, 4 & 5 TESTS PASSED");
+                Console.WriteLine(" ALL MILESTONE 1, 2, 3, 4, 5 & 6 TESTS PASSED");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;
