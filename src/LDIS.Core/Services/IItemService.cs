@@ -14,5 +14,6 @@ namespace LDIS.Core.Services
         void ActivateItem(long itemId);
         IEnumerable<ItemListItemDto> SearchItems(ItemSearchCriteria criteria);
         ProductDistinctAttributesDto GetDistinctAttributes();
+        DashboardSummaryDto GetDashboardSummary();
     }
 }

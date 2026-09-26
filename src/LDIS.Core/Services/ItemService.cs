@@ -196,5 +196,10 @@ namespace LDIS.Core.Services
         {
             return _itemRepository.GetDistinctAttributes();
         }
+
+        public DashboardSummaryDto GetDashboardSummary()
+        {
+            return _itemRepository.GetDashboardSummary();
+        }
     }
 }

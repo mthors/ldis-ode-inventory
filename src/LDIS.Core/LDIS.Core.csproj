@@ -50,6 +50,7 @@
     <Compile Include="Data\Repositories\InventoryTransactionRepository.cs" />
     <Compile Include="Data\Repositories\IItemRepository.cs" />
     <Compile Include="Data\Repositories\ItemRepository.cs" />
+    <Compile Include="DTOs\DashboardSummaryDto.cs" />
     <Compile Include="DTOs\ItemListItemDto.cs" />
     <Compile Include="DTOs\ItemSearchCriteria.cs" />
     <Compile Include="DTOs\ProductDistinctAttributesDto.cs" />

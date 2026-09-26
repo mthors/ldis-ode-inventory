@@ -28,9 +28,14 @@ namespace LDIS.Core.Tests
                 m3Tests.RunAllTests();
 
                 Console.WriteLine();
+                Console.WriteLine("--- Milestone 4 Dashboard and Filter Tests ---");
+                var m4Tests = new Milestone4DashboardAndFilterTests();
+                m4Tests.RunAllTests();
+
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1, 2 & 3 TESTS PASSED SUCCESSFULLY");
+                Console.WriteLine(" ALL MILESTONE 1, 2, 3 & 4 TESTS PASSED");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;

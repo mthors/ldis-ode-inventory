@@ -24,11 +24,33 @@ namespace LDIS.App.Forms
         private System.Windows.Forms.Label lblFiltersTitle;
         private System.Windows.Forms.Label lblFilterCategory;
         private System.Windows.Forms.ComboBox cboFilterCategory;
+        private System.Windows.Forms.Label lblFilterStockStatus;
+        private System.Windows.Forms.ComboBox cboFilterStockStatus;
+        private System.Windows.Forms.Label lblFilterGender;
+        private System.Windows.Forms.ComboBox cboFilterGender;
         private System.Windows.Forms.Label lblFilterStatus;
         private System.Windows.Forms.ComboBox cboFilterStatus;
         private System.Windows.Forms.Button btnResetFilters;
 
         private System.Windows.Forms.Panel pnlMainContent;
+        private System.Windows.Forms.Panel pnlDashboardCards;
+        private System.Windows.Forms.TableLayoutPanel tblDashboardCards;
+        private System.Windows.Forms.Panel pnlCardTotalProducts;
+        private System.Windows.Forms.Label lblCardTotalProductsTitle;
+        private System.Windows.Forms.Label lblCardTotalProductsValue;
+        private System.Windows.Forms.Label lblCardTotalProductsHint;
+        private System.Windows.Forms.Panel pnlCardTotalUnits;
+        private System.Windows.Forms.Label lblCardTotalUnitsTitle;
+        private System.Windows.Forms.Label lblCardTotalUnitsValue;
+        private System.Windows.Forms.Label lblCardTotalUnitsHint;
+        private System.Windows.Forms.Panel pnlCardLowStock;
+        private System.Windows.Forms.Label lblCardLowStockTitle;
+        private System.Windows.Forms.Label lblCardLowStockValue;
+        private System.Windows.Forms.Label lblCardLowStockHint;
+        private System.Windows.Forms.Panel pnlCardOutOfStock;
+        private System.Windows.Forms.Label lblCardOutOfStockTitle;
+        private System.Windows.Forms.Label lblCardOutOfStockValue;
+        private System.Windows.Forms.Label lblCardOutOfStockHint;
         private System.Windows.Forms.Panel pnlGridToolbar;
         private System.Windows.Forms.Button btnStockIn;
         private System.Windows.Forms.Button btnStockOut;
@@ -96,11 +118,33 @@ namespace LDIS.App.Forms
             this.lblFiltersTitle = new System.Windows.Forms.Label();
             this.lblFilterCategory = new System.Windows.Forms.Label();
             this.cboFilterCategory = new System.Windows.Forms.ComboBox();
+            this.lblFilterStockStatus = new System.Windows.Forms.Label();
+            this.cboFilterStockStatus = new System.Windows.Forms.ComboBox();
+            this.lblFilterGender = new System.Windows.Forms.Label();
+            this.cboFilterGender = new System.Windows.Forms.ComboBox();
             this.lblFilterStatus = new System.Windows.Forms.Label();
             this.cboFilterStatus = new System.Windows.Forms.ComboBox();
             this.btnResetFilters = new System.Windows.Forms.Button();
 
             this.pnlMainContent = new System.Windows.Forms.Panel();
+            this.pnlDashboardCards = new System.Windows.Forms.Panel();
+            this.tblDashboardCards = new System.Windows.Forms.TableLayoutPanel();
+            this.pnlCardTotalProducts = new System.Windows.Forms.Panel();
+            this.lblCardTotalProductsTitle = new System.Windows.Forms.Label();
+            this.lblCardTotalProductsValue = new System.Windows.Forms.Label();
+            this.lblCardTotalProductsHint = new System.Windows.Forms.Label();
+            this.pnlCardTotalUnits = new System.Windows.Forms.Panel();
+            this.lblCardTotalUnitsTitle = new System.Windows.Forms.Label();
+            this.lblCardTotalUnitsValue = new System.Windows.Forms.Label();
+            this.lblCardTotalUnitsHint = new System.Windows.Forms.Label();
+            this.pnlCardLowStock = new System.Windows.Forms.Panel();
+            this.lblCardLowStockTitle = new System.Windows.Forms.Label();
+            this.lblCardLowStockValue = new System.Windows.Forms.Label();
+            this.lblCardLowStockHint = new System.Windows.Forms.Label();
+            this.pnlCardOutOfStock = new System.Windows.Forms.Panel();
+            this.lblCardOutOfStockTitle = new System.Windows.Forms.Label();
+            this.lblCardOutOfStockValue = new System.Windows.Forms.Label();
+            this.lblCardOutOfStockHint = new System.Windows.Forms.Label();
             this.pnlGridToolbar = new System.Windows.Forms.Panel();
             this.btnStockIn = new System.Windows.Forms.Button();
             this.btnStockOut = new System.Windows.Forms.Button();
@@ -138,6 +182,12 @@ namespace LDIS.App.Forms
             this.pnlHeader.SuspendLayout();
             this.pnlSidebar.SuspendLayout();
             this.pnlMainContent.SuspendLayout();
+            this.pnlDashboardCards.SuspendLayout();
+            this.tblDashboardCards.SuspendLayout();
+            this.pnlCardTotalProducts.SuspendLayout();
+            this.pnlCardTotalUnits.SuspendLayout();
+            this.pnlCardLowStock.SuspendLayout();
+            this.pnlCardOutOfStock.SuspendLayout();
             this.pnlGridToolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvProducts)).BeginInit();
             this.SuspendLayout();
@@ -253,6 +303,10 @@ namespace LDIS.App.Forms
             this.pnlSidebar.Controls.Add(this.btnResetFilters);
             this.pnlSidebar.Controls.Add(this.cboFilterStatus);
             this.pnlSidebar.Controls.Add(this.lblFilterStatus);
+            this.pnlSidebar.Controls.Add(this.cboFilterGender);
+            this.pnlSidebar.Controls.Add(this.lblFilterGender);
+            this.pnlSidebar.Controls.Add(this.cboFilterStockStatus);
+            this.pnlSidebar.Controls.Add(this.lblFilterStockStatus);
             this.pnlSidebar.Controls.Add(this.cboFilterCategory);
             this.pnlSidebar.Controls.Add(this.lblFilterCategory);
             this.pnlSidebar.Controls.Add(this.lblFiltersTitle);
@@ -275,7 +329,7 @@ namespace LDIS.App.Forms
             // lblFilterCategory
             this.lblFilterCategory.AutoSize = true;
             this.lblFilterCategory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterCategory.Location = new System.Drawing.Point(15, 50);
+            this.lblFilterCategory.Location = new System.Drawing.Point(15, 48);
             this.lblFilterCategory.Name = "lblFilterCategory";
             this.lblFilterCategory.Size = new System.Drawing.Size(58, 15);
             this.lblFilterCategory.Text = "Category:";
@@ -283,19 +337,65 @@ namespace LDIS.App.Forms
             // cboFilterCategory
             this.cboFilterCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFilterCategory.FormattingEnabled = true;
-            this.cboFilterCategory.Location = new System.Drawing.Point(18, 70);
+            this.cboFilterCategory.Location = new System.Drawing.Point(18, 68);
             this.cboFilterCategory.Name = "cboFilterCategory";
             this.cboFilterCategory.Size = new System.Drawing.Size(175, 23);
             this.cboFilterCategory.TabIndex = 0;
             this.cboFilterCategory.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
+            // lblFilterStockStatus
+            this.lblFilterStockStatus.AutoSize = true;
+            this.lblFilterStockStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterStockStatus.Location = new System.Drawing.Point(15, 103);
+            this.lblFilterStockStatus.Name = "lblFilterStockStatus";
+            this.lblFilterStockStatus.Size = new System.Drawing.Size(75, 15);
+            this.lblFilterStockStatus.Text = "Stock Status:";
+
+            // cboFilterStockStatus
+            this.cboFilterStockStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterStockStatus.FormattingEnabled = true;
+            this.cboFilterStockStatus.Items.AddRange(new object[] {
+            "All Stock",
+            "Normal Stock (> Min)",
+            "Low Stock (<= Min)",
+            "Out of Stock (0)"});
+            this.cboFilterStockStatus.Location = new System.Drawing.Point(18, 123);
+            this.cboFilterStockStatus.Name = "cboFilterStockStatus";
+            this.cboFilterStockStatus.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterStockStatus.TabIndex = 1;
+            this.cboFilterStockStatus.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
+
+            // lblFilterGender
+            this.lblFilterGender.AutoSize = true;
+            this.lblFilterGender.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFilterGender.Location = new System.Drawing.Point(15, 158);
+            this.lblFilterGender.Name = "lblFilterGender";
+            this.lblFilterGender.Size = new System.Drawing.Size(48, 15);
+            this.lblFilterGender.Text = "Gender:";
+
+            // cboFilterGender
+            this.cboFilterGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboFilterGender.FormattingEnabled = true;
+            this.cboFilterGender.Items.AddRange(new object[] {
+            "All Genders",
+            "Unisex",
+            "Men",
+            "Women",
+            "Kids",
+            "None / Unspecified"});
+            this.cboFilterGender.Location = new System.Drawing.Point(18, 178);
+            this.cboFilterGender.Name = "cboFilterGender";
+            this.cboFilterGender.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterGender.TabIndex = 2;
+            this.cboFilterGender.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
+
             // lblFilterStatus
             this.lblFilterStatus.AutoSize = true;
             this.lblFilterStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterStatus.Location = new System.Drawing.Point(15, 110);
+            this.lblFilterStatus.Location = new System.Drawing.Point(15, 213);
             this.lblFilterStatus.Name = "lblFilterStatus";
-            this.lblFilterStatus.Size = new System.Drawing.Size(78, 15);
-            this.lblFilterStatus.Text = "Status:";
+            this.lblFilterStatus.Size = new System.Drawing.Size(87, 15);
+            this.lblFilterStatus.Text = "Product Status:";
 
             // cboFilterStatus
             this.cboFilterStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -304,17 +404,17 @@ namespace LDIS.App.Forms
             "Active Only",
             "Inactive Only",
             "All Products"});
-            this.cboFilterStatus.Location = new System.Drawing.Point(18, 130);
+            this.cboFilterStatus.Location = new System.Drawing.Point(18, 233);
             this.cboFilterStatus.Name = "cboFilterStatus";
             this.cboFilterStatus.Size = new System.Drawing.Size(175, 23);
-            this.cboFilterStatus.TabIndex = 1;
+            this.cboFilterStatus.TabIndex = 3;
             this.cboFilterStatus.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
             // btnResetFilters
-            this.btnResetFilters.Location = new System.Drawing.Point(18, 180);
+            this.btnResetFilters.Location = new System.Drawing.Point(18, 275);
             this.btnResetFilters.Name = "btnResetFilters";
-            this.btnResetFilters.Size = new System.Drawing.Size(175, 28);
-            this.btnResetFilters.TabIndex = 2;
+            this.btnResetFilters.Size = new System.Drawing.Size(175, 30);
+            this.btnResetFilters.TabIndex = 4;
             this.btnResetFilters.Text = "Reset Filters";
             this.btnResetFilters.UseVisualStyleBackColor = true;
             this.btnResetFilters.Click += new System.EventHandler(this.btnResetFilters_Click);
@@ -324,12 +424,259 @@ namespace LDIS.App.Forms
             // 
             this.pnlMainContent.Controls.Add(this.dgvProducts);
             this.pnlMainContent.Controls.Add(this.pnlGridToolbar);
+            this.pnlMainContent.Controls.Add(this.pnlDashboardCards);
             this.pnlMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlMainContent.Location = new System.Drawing.Point(210, 64);
             this.pnlMainContent.Name = "pnlMainContent";
             this.pnlMainContent.Padding = new System.Windows.Forms.Padding(10);
             this.pnlMainContent.Size = new System.Drawing.Size(798, 643);
             this.pnlMainContent.TabIndex = 2;
+
+            //
+            // pnlDashboardCards
+            //
+            this.pnlDashboardCards.Controls.Add(this.tblDashboardCards);
+            this.pnlDashboardCards.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlDashboardCards.Location = new System.Drawing.Point(10, 10);
+            this.pnlDashboardCards.Name = "pnlDashboardCards";
+            this.pnlDashboardCards.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
+            this.pnlDashboardCards.Size = new System.Drawing.Size(778, 80);
+            this.pnlDashboardCards.TabIndex = 2;
+
+            //
+            // tblDashboardCards
+            //
+            this.tblDashboardCards.ColumnCount = 4;
+            this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tblDashboardCards.Controls.Add(this.pnlCardTotalProducts, 0, 0);
+            this.tblDashboardCards.Controls.Add(this.pnlCardTotalUnits, 1, 0);
+            this.tblDashboardCards.Controls.Add(this.pnlCardLowStock, 2, 0);
+            this.tblDashboardCards.Controls.Add(this.pnlCardOutOfStock, 3, 0);
+            this.tblDashboardCards.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tblDashboardCards.Location = new System.Drawing.Point(0, 0);
+            this.tblDashboardCards.Margin = new System.Windows.Forms.Padding(0);
+            this.tblDashboardCards.Name = "tblDashboardCards";
+            this.tblDashboardCards.RowCount = 1;
+            this.tblDashboardCards.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tblDashboardCards.Size = new System.Drawing.Size(778, 72);
+            this.tblDashboardCards.TabIndex = 0;
+
+            //
+            // pnlCardTotalProducts
+            //
+            this.pnlCardTotalProducts.BackColor = System.Drawing.Color.White;
+            this.pnlCardTotalProducts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCardTotalProducts.Controls.Add(this.lblCardTotalProductsHint);
+            this.pnlCardTotalProducts.Controls.Add(this.lblCardTotalProductsValue);
+            this.pnlCardTotalProducts.Controls.Add(this.lblCardTotalProductsTitle);
+            this.pnlCardTotalProducts.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlCardTotalProducts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCardTotalProducts.Location = new System.Drawing.Point(0, 0);
+            this.pnlCardTotalProducts.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
+            this.pnlCardTotalProducts.Name = "pnlCardTotalProducts";
+            this.pnlCardTotalProducts.Size = new System.Drawing.Size(190, 72);
+            this.pnlCardTotalProducts.TabIndex = 0;
+            this.pnlCardTotalProducts.Click += new System.EventHandler(this.CardTotalProducts_Click);
+
+            // lblCardTotalProductsTitle
+            this.lblCardTotalProductsTitle.AutoSize = true;
+            this.lblCardTotalProductsTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalProductsTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalProductsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(110)))), ((int)(((byte)(125)))));
+            this.lblCardTotalProductsTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardTotalProductsTitle.Name = "lblCardTotalProductsTitle";
+            this.lblCardTotalProductsTitle.Size = new System.Drawing.Size(130, 12);
+            this.lblCardTotalProductsTitle.TabIndex = 0;
+            this.lblCardTotalProductsTitle.Text = "TOTAL ACTIVE PRODUCTS";
+            this.lblCardTotalProductsTitle.Click += new System.EventHandler(this.CardTotalProducts_Click);
+
+            // lblCardTotalProductsValue
+            this.lblCardTotalProductsValue.AutoSize = true;
+            this.lblCardTotalProductsValue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalProductsValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalProductsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.lblCardTotalProductsValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardTotalProductsValue.Name = "lblCardTotalProductsValue";
+            this.lblCardTotalProductsValue.Size = new System.Drawing.Size(24, 28);
+            this.lblCardTotalProductsValue.TabIndex = 1;
+            this.lblCardTotalProductsValue.Text = "0";
+            this.lblCardTotalProductsValue.Click += new System.EventHandler(this.CardTotalProducts_Click);
+
+            // lblCardTotalProductsHint
+            this.lblCardTotalProductsHint.AutoSize = true;
+            this.lblCardTotalProductsHint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalProductsHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalProductsHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
+            this.lblCardTotalProductsHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardTotalProductsHint.Name = "lblCardTotalProductsHint";
+            this.lblCardTotalProductsHint.Size = new System.Drawing.Size(95, 12);
+            this.lblCardTotalProductsHint.TabIndex = 2;
+            this.lblCardTotalProductsHint.Text = "All stock statuses";
+            this.lblCardTotalProductsHint.Click += new System.EventHandler(this.CardTotalProducts_Click);
+
+            //
+            // pnlCardTotalUnits
+            //
+            this.pnlCardTotalUnits.BackColor = System.Drawing.Color.White;
+            this.pnlCardTotalUnits.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCardTotalUnits.Controls.Add(this.lblCardTotalUnitsHint);
+            this.pnlCardTotalUnits.Controls.Add(this.lblCardTotalUnitsValue);
+            this.pnlCardTotalUnits.Controls.Add(this.lblCardTotalUnitsTitle);
+            this.pnlCardTotalUnits.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlCardTotalUnits.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCardTotalUnits.Location = new System.Drawing.Point(198, 0);
+            this.pnlCardTotalUnits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pnlCardTotalUnits.Name = "pnlCardTotalUnits";
+            this.pnlCardTotalUnits.Size = new System.Drawing.Size(186, 72);
+            this.pnlCardTotalUnits.TabIndex = 1;
+            this.pnlCardTotalUnits.Click += new System.EventHandler(this.CardTotalUnits_Click);
+
+            // lblCardTotalUnitsTitle
+            this.lblCardTotalUnitsTitle.AutoSize = true;
+            this.lblCardTotalUnitsTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalUnitsTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalUnitsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.lblCardTotalUnitsTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardTotalUnitsTitle.Name = "lblCardTotalUnitsTitle";
+            this.lblCardTotalUnitsTitle.Size = new System.Drawing.Size(117, 12);
+            this.lblCardTotalUnitsTitle.TabIndex = 0;
+            this.lblCardTotalUnitsTitle.Text = "TOTAL UNITS IN STOCK";
+            this.lblCardTotalUnitsTitle.Click += new System.EventHandler(this.CardTotalUnits_Click);
+
+            // lblCardTotalUnitsValue
+            this.lblCardTotalUnitsValue.AutoSize = true;
+            this.lblCardTotalUnitsValue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalUnitsValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalUnitsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
+            this.lblCardTotalUnitsValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardTotalUnitsValue.Name = "lblCardTotalUnitsValue";
+            this.lblCardTotalUnitsValue.Size = new System.Drawing.Size(24, 28);
+            this.lblCardTotalUnitsValue.TabIndex = 1;
+            this.lblCardTotalUnitsValue.Text = "0";
+            this.lblCardTotalUnitsValue.Click += new System.EventHandler(this.CardTotalUnits_Click);
+
+            // lblCardTotalUnitsHint
+            this.lblCardTotalUnitsHint.AutoSize = true;
+            this.lblCardTotalUnitsHint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardTotalUnitsHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardTotalUnitsHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
+            this.lblCardTotalUnitsHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardTotalUnitsHint.Name = "lblCardTotalUnitsHint";
+            this.lblCardTotalUnitsHint.Size = new System.Drawing.Size(95, 12);
+            this.lblCardTotalUnitsHint.TabIndex = 2;
+            this.lblCardTotalUnitsHint.Text = "All active inventory";
+            this.lblCardTotalUnitsHint.Click += new System.EventHandler(this.CardTotalUnits_Click);
+
+            //
+            // pnlCardLowStock
+            //
+            this.pnlCardLowStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(249)))), ((int)(((byte)(231)))));
+            this.pnlCardLowStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCardLowStock.Controls.Add(this.lblCardLowStockHint);
+            this.pnlCardLowStock.Controls.Add(this.lblCardLowStockValue);
+            this.pnlCardLowStock.Controls.Add(this.lblCardLowStockTitle);
+            this.pnlCardLowStock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlCardLowStock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCardLowStock.Location = new System.Drawing.Point(392, 0);
+            this.pnlCardLowStock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.pnlCardLowStock.Name = "pnlCardLowStock";
+            this.pnlCardLowStock.Size = new System.Drawing.Size(186, 72);
+            this.pnlCardLowStock.TabIndex = 2;
+            this.pnlCardLowStock.Click += new System.EventHandler(this.CardLowStock_Click);
+
+            // lblCardLowStockTitle
+            this.lblCardLowStockTitle.AutoSize = true;
+            this.lblCardLowStockTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardLowStockTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardLowStockTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
+            this.lblCardLowStockTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardLowStockTitle.Name = "lblCardLowStockTitle";
+            this.lblCardLowStockTitle.Size = new System.Drawing.Size(117, 12);
+            this.lblCardLowStockTitle.TabIndex = 0;
+            this.lblCardLowStockTitle.Text = "LOW STOCK WARNING";
+            this.lblCardLowStockTitle.Click += new System.EventHandler(this.CardLowStock_Click);
+
+            // lblCardLowStockValue
+            this.lblCardLowStockValue.AutoSize = true;
+            this.lblCardLowStockValue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardLowStockValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardLowStockValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
+            this.lblCardLowStockValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardLowStockValue.Name = "lblCardLowStockValue";
+            this.lblCardLowStockValue.Size = new System.Drawing.Size(24, 28);
+            this.lblCardLowStockValue.TabIndex = 1;
+            this.lblCardLowStockValue.Text = "0";
+            this.lblCardLowStockValue.Click += new System.EventHandler(this.CardLowStock_Click);
+
+            // lblCardLowStockHint
+            this.lblCardLowStockHint.AutoSize = true;
+            this.lblCardLowStockHint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardLowStockHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardLowStockHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(110)))), ((int)(((byte)(40)))));
+            this.lblCardLowStockHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardLowStockHint.Name = "lblCardLowStockHint";
+            this.lblCardLowStockHint.Size = new System.Drawing.Size(116, 12);
+            this.lblCardLowStockHint.TabIndex = 2;
+            this.lblCardLowStockHint.Text = "Stock <= Min Stock Level";
+            this.lblCardLowStockHint.Click += new System.EventHandler(this.CardLowStock_Click);
+
+            //
+            // pnlCardOutOfStock
+            //
+            this.pnlCardOutOfStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(237)))), ((int)(((byte)(236)))));
+            this.pnlCardOutOfStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlCardOutOfStock.Controls.Add(this.lblCardOutOfStockHint);
+            this.pnlCardOutOfStock.Controls.Add(this.lblCardOutOfStockValue);
+            this.pnlCardOutOfStock.Controls.Add(this.lblCardOutOfStockTitle);
+            this.pnlCardOutOfStock.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pnlCardOutOfStock.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCardOutOfStock.Location = new System.Drawing.Point(586, 0);
+            this.pnlCardOutOfStock.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
+            this.pnlCardOutOfStock.Name = "pnlCardOutOfStock";
+            this.pnlCardOutOfStock.Size = new System.Drawing.Size(192, 72);
+            this.pnlCardOutOfStock.TabIndex = 3;
+            this.pnlCardOutOfStock.Click += new System.EventHandler(this.CardOutOfStock_Click);
+
+            // lblCardOutOfStockTitle
+            this.lblCardOutOfStockTitle.AutoSize = true;
+            this.lblCardOutOfStockTitle.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardOutOfStockTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardOutOfStockTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
+            this.lblCardOutOfStockTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardOutOfStockTitle.Name = "lblCardOutOfStockTitle";
+            this.lblCardOutOfStockTitle.Size = new System.Drawing.Size(81, 12);
+            this.lblCardOutOfStockTitle.TabIndex = 0;
+            this.lblCardOutOfStockTitle.Text = "OUT OF STOCK";
+            this.lblCardOutOfStockTitle.Click += new System.EventHandler(this.CardOutOfStock_Click);
+
+            // lblCardOutOfStockValue
+            this.lblCardOutOfStockValue.AutoSize = true;
+            this.lblCardOutOfStockValue.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardOutOfStockValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardOutOfStockValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
+            this.lblCardOutOfStockValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardOutOfStockValue.Name = "lblCardOutOfStockValue";
+            this.lblCardOutOfStockValue.Size = new System.Drawing.Size(24, 28);
+            this.lblCardOutOfStockValue.TabIndex = 1;
+            this.lblCardOutOfStockValue.Text = "0";
+            this.lblCardOutOfStockValue.Click += new System.EventHandler(this.CardOutOfStock_Click);
+
+            // lblCardOutOfStockHint
+            this.lblCardOutOfStockHint.AutoSize = true;
+            this.lblCardOutOfStockHint.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.lblCardOutOfStockHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCardOutOfStockHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(80)))), ((int)(((byte)(70)))));
+            this.lblCardOutOfStockHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardOutOfStockHint.Name = "lblCardOutOfStockHint";
+            this.lblCardOutOfStockHint.Size = new System.Drawing.Size(76, 12);
+            this.lblCardOutOfStockHint.TabIndex = 2;
+            this.lblCardOutOfStockHint.Text = "Stock = 0 units";
+            this.lblCardOutOfStockHint.Click += new System.EventHandler(this.CardOutOfStock_Click);
+
+            this.pnlDashboardCards.SendToBack();
 
             // pnlGridToolbar
             this.pnlGridToolbar.Controls.Add(this.btnStockIn);
@@ -512,6 +859,7 @@ namespace LDIS.App.Forms
             this.dgvProducts.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProducts_CellDoubleClick);
             this.dgvProducts.SelectionChanged += new System.EventHandler(this.dgvProducts_SelectionChanged);
             this.dgvProducts.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvProducts_CellFormatting);
+            this.dgvProducts.Paint += new System.Windows.Forms.PaintEventHandler(this.dgvProducts_Paint);
 
             // Columns setup
             this.colSKU.DataPropertyName = "SKU";
@@ -635,6 +983,16 @@ namespace LDIS.App.Forms
             this.pnlHeader.PerformLayout();
             this.pnlSidebar.ResumeLayout(false);
             this.pnlSidebar.PerformLayout();
+            this.pnlCardOutOfStock.ResumeLayout(false);
+            this.pnlCardOutOfStock.PerformLayout();
+            this.pnlCardLowStock.ResumeLayout(false);
+            this.pnlCardLowStock.PerformLayout();
+            this.pnlCardTotalUnits.ResumeLayout(false);
+            this.pnlCardTotalUnits.PerformLayout();
+            this.pnlCardTotalProducts.ResumeLayout(false);
+            this.pnlCardTotalProducts.PerformLayout();
+            this.tblDashboardCards.ResumeLayout(false);
+            this.pnlDashboardCards.ResumeLayout(false);
             this.pnlMainContent.ResumeLayout(false);
             this.pnlGridToolbar.ResumeLayout(false);
             this.pnlGridToolbar.PerformLayout();

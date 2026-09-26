@@ -62,7 +62,9 @@ namespace LDIS.App.Forms
                 );
 
                 LoadCategoryFilter();
-                cboFilterStatus.SelectedIndex = 0; // Active Only
+                cboFilterStockStatus.SelectedIndex = 0; // All Stock
+                cboFilterGender.SelectedIndex = 0;      // All Genders
+                cboFilterStatus.SelectedIndex = 0;      // Active Only
 
                 _isInitialLoading = false;
                 RefreshProductList();
@@ -193,6 +195,32 @@ namespace LDIS.App.Forms
                     criteria.CategoryID = catItem.CategoryID.Value;
                 }
 
+                // Stock status filter
+                int stockStatusIndex = cboFilterStockStatus.SelectedIndex;
+                if (stockStatusIndex == 1)
+                {
+                    criteria.StockStatus = StockFilterStatus.NormalStock;
+                }
+                else if (stockStatusIndex == 2)
+                {
+                    criteria.StockStatus = StockFilterStatus.LowStock;
+                }
+                else if (stockStatusIndex == 3)
+                {
+                    criteria.StockStatus = StockFilterStatus.OutOfStock;
+                }
+                else
+                {
+                    criteria.StockStatus = StockFilterStatus.All;
+                }
+
+                // Gender filter
+                int genderIndex = cboFilterGender.SelectedIndex;
+                if (genderIndex > 0 && genderIndex < cboFilterGender.Items.Count)
+                {
+                    criteria.Gender = cboFilterGender.SelectedItem.ToString();
+                }
+
                 // Status filter
                 int statusIndex = cboFilterStatus.SelectedIndex;
                 if (statusIndex == 0)
@@ -215,6 +243,7 @@ namespace LDIS.App.Forms
 
                 dgvProducts.DataSource = null;
                 dgvProducts.DataSource = _currentProducts;
+                dgvProducts.Invalidate();
 
                 if (previousSelectedId.HasValue)
                 {
@@ -231,8 +260,23 @@ namespace LDIS.App.Forms
 
                 UpdateStatusSummary();
                 UpdateActionButtons();
+                RefreshDashboardKPIs();
 
-                lblStatus.Text = "Ready";
+                if (_currentProducts.Count == 0)
+                {
+                    lblGridSummary.Text = "0 products found";
+                    lblStatus.Text = "No products match the selected filters.";
+                }
+                else if (_currentProducts.Count == 1)
+                {
+                    lblGridSummary.Text = "1 product found | Right-click for menu";
+                    lblStatus.Text = "Ready";
+                }
+                else
+                {
+                    lblGridSummary.Text = string.Format("{0:N0} products found | Right-click for menu", _currentProducts.Count);
+                    lblStatus.Text = "Ready";
+                }
             }
             catch (Exception ex)
             {
@@ -241,15 +285,30 @@ namespace LDIS.App.Forms
             }
         }
 
+        private void RefreshDashboardKPIs()
+        {
+            try
+            {
+                var summary = _itemService.GetDashboardSummary();
+
+                lblCardTotalProductsValue.Text = summary.TotalActiveProducts.ToString("N0");
+                lblCardTotalUnitsValue.Text = summary.TotalUnitsInStock.ToString("N0");
+                lblCardLowStockValue.Text = summary.LowStockCount.ToString("N0");
+                lblCardOutOfStockValue.Text = summary.OutOfStockCount.ToString("N0");
+
+                lblTotalProducts.Text = string.Format("Active Products: {0:N0}", summary.TotalActiveProducts);
+                lblLowStock.Text = string.Format("Low Stock: {0:N0}", summary.LowStockCount);
+                lblOutOfStock.Text = string.Format("Out of Stock: {0:N0}", summary.OutOfStockCount);
+            }
+            catch (Exception ex)
+            {
+                lblStatus.Text = "Failed to refresh dashboard: " + ex.Message;
+            }
+        }
+
         private void UpdateStatusSummary()
         {
-            int total = _currentProducts.Count;
-            int lowStock = _currentProducts.Count(p => p.CurrentStock > 0 && p.CurrentStock <= p.MinStockLevel);
-            int outOfStock = _currentProducts.Count(p => p.CurrentStock == 0);
-
-            lblTotalProducts.Text = string.Format("Total Products: {0:N0}", total);
-            lblLowStock.Text = string.Format("Low Stock: {0:N0}", lowStock);
-            lblOutOfStock.Text = string.Format("Out of Stock: {0:N0}", outOfStock);
+            // Kept for backward compatibility; status bar labels are updated via RefreshDashboardKPIs()
         }
 
         private ItemListItemDto GetSelectedProduct()
@@ -364,8 +423,52 @@ namespace LDIS.App.Forms
         {
             txtSearch.Text = string.Empty;
             cboFilterCategory.SelectedIndex = 0;
+            cboFilterStockStatus.SelectedIndex = 0;
+            cboFilterGender.SelectedIndex = 0;
             cboFilterStatus.SelectedIndex = 0; // Active Only
             RefreshProductList();
+        }
+
+        private void CardTotalProducts_Click(object sender, EventArgs e)
+        {
+            cboFilterStockStatus.SelectedIndex = 0; // All Stock
+            cboFilterStatus.SelectedIndex = 0;      // Active Only
+            RefreshProductList();
+        }
+
+        private void CardTotalUnits_Click(object sender, EventArgs e)
+        {
+            cboFilterStockStatus.SelectedIndex = 0; // All Stock
+            cboFilterStatus.SelectedIndex = 0;      // Active Only
+            RefreshProductList();
+        }
+
+        private void CardLowStock_Click(object sender, EventArgs e)
+        {
+            cboFilterStockStatus.SelectedIndex = 2; // Low Stock
+            cboFilterStatus.SelectedIndex = 0;      // Active Only
+            RefreshProductList();
+        }
+
+        private void CardOutOfStock_Click(object sender, EventArgs e)
+        {
+            cboFilterStockStatus.SelectedIndex = 3; // Out of Stock
+            cboFilterStatus.SelectedIndex = 0;      // Active Only
+            RefreshProductList();
+        }
+
+        private void dgvProducts_Paint(object sender, PaintEventArgs e)
+        {
+            if (dgvProducts.Rows.Count == 0)
+            {
+                string message = "No products found matching the selected filters.";
+                using (var brush = new SolidBrush(Color.FromArgb(127, 140, 141)))
+                using (var font = new Font("Segoe UI", 10F, FontStyle.Regular))
+                using (var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center })
+                {
+                    e.Graphics.DrawString(message, font, brush, dgvProducts.ClientRectangle, sf);
+                }
+            }
         }
 
         private void btnRefresh_Click(object sender, EventArgs e)

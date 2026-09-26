@@ -14,5 +14,6 @@ namespace LDIS.Core.Data.Repositories
         void SetActiveStatus(long itemId, bool isActive);
         IEnumerable<ItemListItemDto> Search(ItemSearchCriteria criteria);
         ProductDistinctAttributesDto GetDistinctAttributes();
+        DashboardSummaryDto GetDashboardSummary();
     }
 }

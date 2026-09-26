@@ -224,6 +224,33 @@ namespace LDIS.Core.Data.Repositories
                         cmd.Parameters.AddWithValue("@size", criteria.Size.Trim());
                     }
 
+                    if (!string.IsNullOrWhiteSpace(criteria.Gender))
+                    {
+                        if (string.Equals(criteria.Gender, GenderOptions.None, StringComparison.OrdinalIgnoreCase))
+                        {
+                            query += " AND (i.Gender IS NULL OR TRIM(i.Gender) = '' OR LOWER(i.Gender) = LOWER(@gender)) ";
+                            cmd.Parameters.AddWithValue("@gender", criteria.Gender.Trim());
+                        }
+                        else
+                        {
+                            query += " AND LOWER(i.Gender) = LOWER(@gender) ";
+                            cmd.Parameters.AddWithValue("@gender", criteria.Gender.Trim());
+                        }
+                    }
+
+                    if (criteria.StockStatus == StockFilterStatus.NormalStock)
+                    {
+                        query += " AND i.CurrentStock > i.MinStockLevel ";
+                    }
+                    else if (criteria.StockStatus == StockFilterStatus.LowStock)
+                    {
+                        query += " AND i.CurrentStock > 0 AND i.CurrentStock <= i.MinStockLevel ";
+                    }
+                    else if (criteria.StockStatus == StockFilterStatus.OutOfStock)
+                    {
+                        query += " AND i.CurrentStock = 0 ";
+                    }
+
                     if (criteria.ActiveStatus == ActiveFilterStatus.ActiveOnly)
                     {
                         query += " AND i.IsActive = 1 ";
@@ -303,6 +330,37 @@ namespace LDIS.Core.Data.Repositories
             }
 
             return dto;
+        }
+
+        public DashboardSummaryDto GetDashboardSummary()
+        {
+            var summary = new DashboardSummaryDto();
+
+            using (var conn = _connectionFactory.CreateOpenConnection())
+            using (var cmd = conn.CreateCommand())
+            {
+                cmd.CommandText = @"
+                    SELECT
+                        COUNT(*) AS TotalActiveProducts,
+                        COALESCE(SUM(CurrentStock), 0) AS TotalUnitsInStock,
+                        COALESCE(SUM(CASE WHEN CurrentStock > 0 AND CurrentStock <= MinStockLevel THEN 1 ELSE 0 END), 0) AS LowStockCount,
+                        COALESCE(SUM(CASE WHEN CurrentStock = 0 THEN 1 ELSE 0 END), 0) AS OutOfStockCount
+                    FROM Items
+                    WHERE IsActive = 1;";
+
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        summary.TotalActiveProducts = Convert.ToInt32(reader["TotalActiveProducts"]);
+                        summary.TotalUnitsInStock = Convert.ToInt32(reader["TotalUnitsInStock"]);
+                        summary.LowStockCount = Convert.ToInt32(reader["LowStockCount"]);
+                        summary.OutOfStockCount = Convert.ToInt32(reader["OutOfStockCount"]);
+                    }
+                }
+            }
+
+            return summary;
         }
 
         private static void BindItemParameters(SQLiteCommand cmd, Item item)
