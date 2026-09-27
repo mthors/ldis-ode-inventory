@@ -47,6 +47,7 @@ namespace LDIS.App.Forms
             _backupService = backupService ?? new BackupService(connectionFactory);
 
             InitializeComponent();
+            dgvProducts.AutoGenerateColumns = false;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -356,18 +357,18 @@ namespace LDIS.App.Forms
             {
                 if (selected.IsActive)
                 {
-                    btnToggleStatus.Text = "&Deactivate";
+                    btnToggleStatus.Text = "Deactivate";
                     mnuToggleStatus.Text = "&Deactivate Product";
                 }
                 else
                 {
-                    btnToggleStatus.Text = "&Reactivate";
-                    mnuToggleStatus.Text = "&Reactivate Product";
+                    btnToggleStatus.Text = "Activate";
+                    mnuToggleStatus.Text = "&Activate Product";
                 }
             }
             else
             {
-                btnToggleStatus.Text = "&Deactivate";
+                btnToggleStatus.Text = "Deactivate";
                 mnuToggleStatus.Text = "&Deactivate Product";
             }
         }

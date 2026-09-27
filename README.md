@@ -70,8 +70,8 @@ To create a clean, deterministic standalone distribution package:
 ```
 
 This generates:
-* `dist\LDIS-v1.0.0\` (extracted application folder)
-* `dist\LDIS-v1.0.0.zip` (compressed standalone release archive)
+* `dist\LDIS-v1.0.1\` (extracted application folder)
+* `dist\LDIS-v1.0.1.zip` (compressed standalone release archive)
 
 For full deployment and operations instructions, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
 

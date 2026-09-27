@@ -123,6 +123,8 @@ namespace LDIS.App.Forms
             this.MinimumSize = new Size(920, 520);
             this.StartPosition = FormStartPosition.CenterParent;
             this.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point, ((byte)(0)));
+            this.AutoScaleDimensions = new SizeF(7F, 15F);
+            this.AutoScaleMode = AutoScaleMode.Font;
             this.KeyPreview = true;
             this.KeyDown += TransactionHistoryForm_KeyDown;
 
@@ -135,116 +137,139 @@ namespace LDIS.App.Forms
             this.lblTitle.Text = "Inventory Transactions";
             this.lblTitle.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             this.lblTitle.ForeColor = Color.White;
-            this.lblTitle.Location = new Point(16, 9);
+            this.lblTitle.Location = new Point(16, 10);
             this.lblTitle.Size = new Size(240, 22);
 
             this.lblSubtitle.Text = string.IsNullOrEmpty(_filterItemSku) ? "Audit trail of all stock movements" : string.Format("Filtered for product: {0}", _filterItemSku);
             this.lblSubtitle.Font = new Font("Segoe UI", 8.25F);
             this.lblSubtitle.ForeColor = Color.LightGray;
-            this.lblSubtitle.Location = new Point(18, 32);
+            this.lblSubtitle.Location = new Point(18, 33);
             this.lblSubtitle.Size = new Size(350, 18);
 
-            this.txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.txtSearch.Location = new Point(718, 17);
-            this.txtSearch.Size = new Size(210, 23);
+            var pnlHeaderSearch = new Panel();
+            pnlHeaderSearch.Dock = DockStyle.Right;
+            pnlHeaderSearch.Width = 385;
+            pnlHeaderSearch.BackColor = Color.Transparent;
+
+            this.txtSearch.Location = new Point(8, 16);
+            this.txtSearch.Size = new Size(185, 24);
+            this.txtSearch.Font = new Font("Segoe UI", 9.5F);
             this.txtSearch.KeyDown += txtSearch_KeyDown;
 
-            this.btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.btnSearch.Text = "Search";
-            this.btnSearch.Font = new Font("Segoe UI", 8.5F, FontStyle.Bold);
+            this.btnSearch.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             this.btnSearch.BackColor = Color.FromArgb(52, 152, 219);
             this.btnSearch.ForeColor = Color.White;
             this.btnSearch.FlatStyle = FlatStyle.Flat;
             this.btnSearch.FlatAppearance.BorderSize = 0;
-            this.btnSearch.Location = new Point(936, 15);
-            this.btnSearch.Size = new Size(75, 28);
+            this.btnSearch.Location = new Point(201, 14);
+            this.btnSearch.Size = new Size(86, 29);
             this.btnSearch.Click += btnSearch_Click;
 
-            this.btnClearSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             this.btnClearSearch.Text = "Clear";
+            this.btnClearSearch.Font = new Font("Segoe UI", 9F);
             this.btnClearSearch.BackColor = Color.FromArgb(127, 140, 141);
             this.btnClearSearch.ForeColor = Color.White;
             this.btnClearSearch.FlatStyle = FlatStyle.Flat;
             this.btnClearSearch.FlatAppearance.BorderSize = 0;
-            this.btnClearSearch.Location = new Point(1017, 15);
-            this.btnClearSearch.Size = new Size(65, 28);
+            this.btnClearSearch.Location = new Point(295, 14);
+            this.btnClearSearch.Size = new Size(74, 29);
             this.btnClearSearch.Click += btnClearSearch_Click;
 
+            pnlHeaderSearch.Controls.Add(this.txtSearch);
+            pnlHeaderSearch.Controls.Add(this.btnSearch);
+            pnlHeaderSearch.Controls.Add(this.btnClearSearch);
+
+            this.pnlHeader.Controls.Add(pnlHeaderSearch);
             this.pnlHeader.Controls.Add(this.lblTitle);
             this.pnlHeader.Controls.Add(this.lblSubtitle);
-            this.pnlHeader.Controls.Add(this.txtSearch);
-            this.pnlHeader.Controls.Add(this.btnSearch);
-            this.pnlHeader.Controls.Add(this.btnClearSearch);
 
             // Filter Bar
-            this.pnlFilterBar.Size = new Size(1100, 48);
-            this.pnlFilterBar.Height = 48;
+            this.pnlFilterBar.Size = new Size(1100, 54);
+            this.pnlFilterBar.Height = 54;
             this.pnlFilterBar.Dock = DockStyle.Top;
             this.pnlFilterBar.BackColor = Color.FromArgb(240, 243, 246);
             this.pnlFilterBar.BorderStyle = BorderStyle.FixedSingle;
 
+            var pnlFilterActions = new Panel();
+            pnlFilterActions.Dock = DockStyle.Right;
+            pnlFilterActions.Width = 205;
+            pnlFilterActions.BackColor = Color.Transparent;
+
+            this.btnExport.Text = "Export";
+            this.btnExport.Font = new Font("Segoe UI", 9F);
+            this.btnExport.Location = new Point(10, 12);
+            this.btnExport.Size = new Size(86, 30);
+            this.btnExport.Click += btnExport_Click;
+
+            this.btnRefresh.Text = "Refresh";
+            this.btnRefresh.Font = new Font("Segoe UI", 9F);
+            this.btnRefresh.Location = new Point(104, 12);
+            this.btnRefresh.Size = new Size(86, 30);
+            this.btnRefresh.Click += delegate { LoadTransactions(); };
+
+            pnlFilterActions.Controls.Add(this.btnExport);
+            pnlFilterActions.Controls.Add(this.btnRefresh);
+
+            var flowFilterInputs = new FlowLayoutPanel();
+            flowFilterInputs.Dock = DockStyle.Fill;
+            flowFilterInputs.FlowDirection = FlowDirection.LeftToRight;
+            flowFilterInputs.WrapContents = false;
+            flowFilterInputs.Padding = new Padding(12, 12, 0, 0);
+            flowFilterInputs.BackColor = Color.Transparent;
+
             this.lblTypeFilter.Text = "Type:";
             this.lblTypeFilter.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.lblTypeFilter.Location = new Point(16, 14);
-            this.lblTypeFilter.Size = new Size(40, 20);
+            this.lblTypeFilter.AutoSize = true;
+            this.lblTypeFilter.Margin = new Padding(0, 6, 4, 0);
 
             this.cboTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cboTypeFilter.Items.AddRange(new object[] { "All Types", "Stock IN", "Stock OUT", "Adjustment" });
             this.cboTypeFilter.SelectedIndex = 0;
-            this.cboTypeFilter.Location = new Point(60, 11);
-            this.cboTypeFilter.Size = new Size(110, 23);
+            this.cboTypeFilter.Size = new Size(115, 24);
+            this.cboTypeFilter.Margin = new Padding(0, 2, 16, 0);
             this.cboTypeFilter.SelectedIndexChanged += Filter_Changed;
 
             this.lblDateFilter.Text = "Date:";
             this.lblDateFilter.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            this.lblDateFilter.Location = new Point(185, 14);
-            this.lblDateFilter.Size = new Size(40, 20);
+            this.lblDateFilter.AutoSize = true;
+            this.lblDateFilter.Margin = new Padding(0, 6, 4, 0);
 
             this.cboDateFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             this.cboDateFilter.Items.AddRange(new object[] { "All Time", "Today", "Yesterday", "Last 7 Days", "This Month", "Custom Range" });
             this.cboDateFilter.SelectedIndex = 0;
-            this.cboDateFilter.Location = new Point(228, 11);
-            this.cboDateFilter.Size = new Size(120, 23);
+            this.cboDateFilter.Size = new Size(135, 24);
+            this.cboDateFilter.Margin = new Padding(0, 2, 8, 0);
             this.cboDateFilter.SelectedIndexChanged += cboDateFilter_SelectedIndexChanged;
 
             this.dtpStart.Format = DateTimePickerFormat.Short;
-            this.dtpStart.Location = new Point(356, 11);
-            this.dtpStart.Size = new Size(95, 23);
+            this.dtpStart.Size = new Size(105, 24);
+            this.dtpStart.Margin = new Padding(0, 2, 6, 0);
             this.dtpStart.Visible = false;
             this.dtpStart.ValueChanged += Filter_Changed;
 
             this.dtpEnd.Format = DateTimePickerFormat.Short;
-            this.dtpEnd.Location = new Point(456, 11);
-            this.dtpEnd.Size = new Size(95, 23);
+            this.dtpEnd.Size = new Size(105, 24);
+            this.dtpEnd.Margin = new Padding(0, 2, 8, 0);
             this.dtpEnd.Visible = false;
             this.dtpEnd.ValueChanged += Filter_Changed;
 
-            this.btnResetFilters.Text = "Reset Filters";
-            this.btnResetFilters.Location = new Point(560, 9);
-            this.btnResetFilters.Size = new Size(100, 30);
+            this.btnResetFilters.Text = "Reset";
+            this.btnResetFilters.Font = new Font("Segoe UI", 9F);
+            this.btnResetFilters.Size = new Size(80, 30);
+            this.btnResetFilters.Margin = new Padding(0, 0, 0, 0);
             this.btnResetFilters.Click += btnResetFilters_Click;
 
-            this.btnExport.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.btnExport.Text = "Export &CSV...";
-            this.btnExport.Location = new Point(860, 9);
-            this.btnExport.Size = new Size(115, 30);
-            this.btnExport.Click += btnExport_Click;
+            flowFilterInputs.Controls.Add(this.lblTypeFilter);
+            flowFilterInputs.Controls.Add(this.cboTypeFilter);
+            flowFilterInputs.Controls.Add(this.lblDateFilter);
+            flowFilterInputs.Controls.Add(this.cboDateFilter);
+            flowFilterInputs.Controls.Add(this.dtpStart);
+            flowFilterInputs.Controls.Add(this.dtpEnd);
+            flowFilterInputs.Controls.Add(this.btnResetFilters);
 
-            this.btnRefresh.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.btnRefresh.Text = "Refresh (F5)";
-            this.btnRefresh.Location = new Point(980, 9);
-            this.btnRefresh.Size = new Size(105, 30);
-            this.btnRefresh.Click += delegate { LoadTransactions(); };
-
-            this.pnlFilterBar.Controls.Add(this.lblTypeFilter);
-            this.pnlFilterBar.Controls.Add(this.cboTypeFilter);
-            this.pnlFilterBar.Controls.Add(this.lblDateFilter);
-            this.pnlFilterBar.Controls.Add(this.cboDateFilter);
-            this.pnlFilterBar.Controls.Add(this.dtpStart);
-            this.pnlFilterBar.Controls.Add(this.dtpEnd);
-            this.pnlFilterBar.Controls.Add(this.btnResetFilters);
-            this.pnlFilterBar.Controls.Add(this.btnExport);
-            this.pnlFilterBar.Controls.Add(this.btnRefresh);
+            this.pnlFilterBar.Controls.Add(flowFilterInputs);
+            this.pnlFilterBar.Controls.Add(pnlFilterActions);
 
             // DataGridView
             this.dgvTransactions.Dock = DockStyle.Fill;

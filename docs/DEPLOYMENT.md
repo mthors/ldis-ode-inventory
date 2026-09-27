@@ -26,10 +26,10 @@ The **Lightweight Desktop Inventory System (LDIS)** is a standalone, offline-fir
 
 ## 3. Package Structure & Files
 
-The release package is distributed as a clean standalone directory (`LDIS-v1.0.0/`) or compressed archive (`LDIS-v1.0.0.zip`):
+The release package is distributed as a clean standalone directory (`LDIS-v1.0.1/`) or compressed archive (`LDIS-v1.0.1.zip`):
 
 ```text
-LDIS-v1.0.0/
+LDIS-v1.0.1/
 ├── LDIS.App.exe            - Main Windows Forms application executable
 ├── LDIS.App.exe.config     - .NET Framework 4.8 CLR startup configuration
 ├── LDIS.Core.dll           - Domain logic, data access, export, and backup services
@@ -48,7 +48,7 @@ LDIS-v1.0.0/
 LDIS is an **xcopy-deployable** application that requires no installer, no Windows Registry configuration, and no COM registrations.
 
 ### Standard Desktop Deployment
-1. Extract `LDIS-v1.0.0.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
+1. Extract `LDIS-v1.0.1.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
 2. Right-click `LDIS.App.exe` and select **Send to → Desktop (create shortcut)**.
 3. Launch the application from the shortcut.
 
@@ -96,7 +96,7 @@ Because development occurs on modern Windows environments, final production sign
 
 - [ ] **Windows 7 Service Pack 1:** Confirm OS is Windows 7 SP1 (Build 7601) via `winver`.
 - [ ] **.NET 4.8 Installation:** Verify .NET 4.8 is present (Release key `>= 528040` in `HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full`).
-- [ ] **Clean Extraction:** Extract `LDIS-v1.0.0.zip` to a standard user directory (e.g. `C:\LDIS`).
+- [ ] **Clean Extraction:** Extract `LDIS-v1.0.1.zip` to a standard user directory (e.g. `C:\LDIS`).
 - [ ] **First Launch:** Launch `LDIS.App.exe` as a standard (non-admin) user. Confirm startup without missing DLL errors.
 - [ ] **Database Creation:** Verify `%LocalAppData%\LDIS\inventory.db` is created and status bar shows connected database.
 - [ ] **Core Workflow:**

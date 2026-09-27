@@ -211,14 +211,14 @@ namespace LDIS.App.Forms
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
             this.pnlHeader.Name = "pnlHeader";
-            this.pnlHeader.Size = new System.Drawing.Size(1008, 64);
+            this.pnlHeader.Size = new System.Drawing.Size(1008, 74);
             this.pnlHeader.TabIndex = 0;
 
             // lblAppTitle
             this.lblAppTitle.AutoSize = true;
             this.lblAppTitle.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAppTitle.ForeColor = System.Drawing.Color.White;
-            this.lblAppTitle.Location = new System.Drawing.Point(16, 10);
+            this.lblAppTitle.Location = new System.Drawing.Point(16, 6);
             this.lblAppTitle.Name = "lblAppTitle";
             this.lblAppTitle.Size = new System.Drawing.Size(55, 25);
             this.lblAppTitle.Text = "LDIS";
@@ -227,7 +227,7 @@ namespace LDIS.App.Forms
             this.lblAppSubtitle.AutoSize = true;
             this.lblAppSubtitle.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAppSubtitle.ForeColor = System.Drawing.Color.LightGray;
-            this.lblAppSubtitle.Location = new System.Drawing.Point(18, 38);
+            this.lblAppSubtitle.Location = new System.Drawing.Point(18, 48);
             this.lblAppSubtitle.Name = "lblAppSubtitle";
             this.lblAppSubtitle.Size = new System.Drawing.Size(121, 13);
             this.lblAppSubtitle.Text = "Product Management";
@@ -235,9 +235,9 @@ namespace LDIS.App.Forms
             // txtSearch
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(370, 20);
+            this.txtSearch.Location = new System.Drawing.Point(326, 24);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(200, 25);
+            this.txtSearch.Size = new System.Drawing.Size(180, 25);
             this.txtSearch.TabIndex = 0;
             this.txtSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyDown);
 
@@ -248,9 +248,9 @@ namespace LDIS.App.Forms
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(576, 17);
+            this.btnSearch.Location = new System.Drawing.Point(512, 22);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(62, 29);
+            this.btnSearch.Size = new System.Drawing.Size(86, 29);
             this.btnSearch.TabIndex = 1;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
@@ -263,9 +263,9 @@ namespace LDIS.App.Forms
             this.btnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearSearch.ForeColor = System.Drawing.Color.White;
-            this.btnClearSearch.Location = new System.Drawing.Point(642, 17);
+            this.btnClearSearch.Location = new System.Drawing.Point(604, 22);
             this.btnClearSearch.Name = "btnClearSearch";
-            this.btnClearSearch.Size = new System.Drawing.Size(52, 29);
+            this.btnClearSearch.Size = new System.Drawing.Size(72, 29);
             this.btnClearSearch.TabIndex = 2;
             this.btnClearSearch.Text = "Clear";
             this.btnClearSearch.UseVisualStyleBackColor = false;
@@ -278,11 +278,11 @@ namespace LDIS.App.Forms
             this.btnNewProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewProduct.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewProduct.ForeColor = System.Drawing.Color.White;
-            this.btnNewProduct.Location = new System.Drawing.Point(698, 17);
+            this.btnNewProduct.Location = new System.Drawing.Point(682, 22);
             this.btnNewProduct.Name = "btnNewProduct";
-            this.btnNewProduct.Size = new System.Drawing.Size(106, 30);
+            this.btnNewProduct.Size = new System.Drawing.Size(88, 29);
             this.btnNewProduct.TabIndex = 3;
-            this.btnNewProduct.Text = "+ New Product";
+            this.btnNewProduct.Text = "+ New";
             this.btnNewProduct.UseVisualStyleBackColor = false;
             this.btnNewProduct.Click += new System.EventHandler(this.btnNewProduct_Click);
 
@@ -293,11 +293,11 @@ namespace LDIS.App.Forms
             this.btnCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategories.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCategories.ForeColor = System.Drawing.Color.White;
-            this.btnCategories.Location = new System.Drawing.Point(808, 17);
+            this.btnCategories.Location = new System.Drawing.Point(776, 22);
             this.btnCategories.Name = "btnCategories";
-            this.btnCategories.Size = new System.Drawing.Size(94, 30);
+            this.btnCategories.Size = new System.Drawing.Size(120, 29);
             this.btnCategories.TabIndex = 4;
-            this.btnCategories.Text = "Categories...";
+            this.btnCategories.Text = "Categories";
             this.btnCategories.UseVisualStyleBackColor = false;
             this.btnCategories.Click += new System.EventHandler(this.btnCategories_Click);
 
@@ -308,11 +308,11 @@ namespace LDIS.App.Forms
             this.btnBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackup.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBackup.ForeColor = System.Drawing.Color.White;
-            this.btnBackup.Location = new System.Drawing.Point(906, 17);
+            this.btnBackup.Location = new System.Drawing.Point(902, 22);
             this.btnBackup.Name = "btnBackup";
-            this.btnBackup.Size = new System.Drawing.Size(94, 30);
+            this.btnBackup.Size = new System.Drawing.Size(90, 29);
             this.btnBackup.TabIndex = 5;
-            this.btnBackup.Text = "&Backup DB...";
+            this.btnBackup.Text = "Backup";
             this.btnBackup.UseVisualStyleBackColor = false;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
 
@@ -331,17 +331,17 @@ namespace LDIS.App.Forms
             this.pnlSidebar.Controls.Add(this.lblFilterCategory);
             this.pnlSidebar.Controls.Add(this.lblFiltersTitle);
             this.pnlSidebar.Dock = System.Windows.Forms.DockStyle.Left;
-            this.pnlSidebar.Location = new System.Drawing.Point(0, 64);
+            this.pnlSidebar.Location = new System.Drawing.Point(0, 74);
             this.pnlSidebar.Name = "pnlSidebar";
-            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(15);
-            this.pnlSidebar.Size = new System.Drawing.Size(210, 643);
+            this.pnlSidebar.Padding = new System.Windows.Forms.Padding(18, 16, 18, 16);
+            this.pnlSidebar.Size = new System.Drawing.Size(240, 643);
             this.pnlSidebar.TabIndex = 1;
 
             // lblFiltersTitle
             this.lblFiltersTitle.AutoSize = true;
             this.lblFiltersTitle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFiltersTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblFiltersTitle.Location = new System.Drawing.Point(15, 15);
+            this.lblFiltersTitle.Location = new System.Drawing.Point(18, 16);
             this.lblFiltersTitle.Name = "lblFiltersTitle";
             this.lblFiltersTitle.Size = new System.Drawing.Size(51, 19);
             this.lblFiltersTitle.Text = "Filters";
@@ -349,7 +349,7 @@ namespace LDIS.App.Forms
             // lblFilterCategory
             this.lblFilterCategory.AutoSize = true;
             this.lblFilterCategory.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterCategory.Location = new System.Drawing.Point(15, 48);
+            this.lblFilterCategory.Location = new System.Drawing.Point(18, 52);
             this.lblFilterCategory.Name = "lblFilterCategory";
             this.lblFilterCategory.Size = new System.Drawing.Size(58, 15);
             this.lblFilterCategory.Text = "Category:";
@@ -357,16 +357,16 @@ namespace LDIS.App.Forms
             // cboFilterCategory
             this.cboFilterCategory.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboFilterCategory.FormattingEnabled = true;
-            this.cboFilterCategory.Location = new System.Drawing.Point(18, 68);
+            this.cboFilterCategory.Location = new System.Drawing.Point(18, 76);
             this.cboFilterCategory.Name = "cboFilterCategory";
-            this.cboFilterCategory.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterCategory.Size = new System.Drawing.Size(200, 23);
             this.cboFilterCategory.TabIndex = 0;
             this.cboFilterCategory.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
             // lblFilterStockStatus
             this.lblFilterStockStatus.AutoSize = true;
             this.lblFilterStockStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterStockStatus.Location = new System.Drawing.Point(15, 103);
+            this.lblFilterStockStatus.Location = new System.Drawing.Point(18, 124);
             this.lblFilterStockStatus.Name = "lblFilterStockStatus";
             this.lblFilterStockStatus.Size = new System.Drawing.Size(75, 15);
             this.lblFilterStockStatus.Text = "Stock Status:";
@@ -379,16 +379,16 @@ namespace LDIS.App.Forms
             "Normal Stock (> Min)",
             "Low Stock (<= Min)",
             "Out of Stock (0)"});
-            this.cboFilterStockStatus.Location = new System.Drawing.Point(18, 123);
+            this.cboFilterStockStatus.Location = new System.Drawing.Point(18, 148);
             this.cboFilterStockStatus.Name = "cboFilterStockStatus";
-            this.cboFilterStockStatus.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterStockStatus.Size = new System.Drawing.Size(200, 23);
             this.cboFilterStockStatus.TabIndex = 1;
             this.cboFilterStockStatus.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
             // lblFilterGender
             this.lblFilterGender.AutoSize = true;
             this.lblFilterGender.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterGender.Location = new System.Drawing.Point(15, 158);
+            this.lblFilterGender.Location = new System.Drawing.Point(18, 196);
             this.lblFilterGender.Name = "lblFilterGender";
             this.lblFilterGender.Size = new System.Drawing.Size(48, 15);
             this.lblFilterGender.Text = "Gender:";
@@ -403,16 +403,16 @@ namespace LDIS.App.Forms
             "Women",
             "Kids",
             "None / Unspecified"});
-            this.cboFilterGender.Location = new System.Drawing.Point(18, 178);
+            this.cboFilterGender.Location = new System.Drawing.Point(18, 220);
             this.cboFilterGender.Name = "cboFilterGender";
-            this.cboFilterGender.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterGender.Size = new System.Drawing.Size(200, 23);
             this.cboFilterGender.TabIndex = 2;
             this.cboFilterGender.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
             // lblFilterStatus
             this.lblFilterStatus.AutoSize = true;
             this.lblFilterStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFilterStatus.Location = new System.Drawing.Point(15, 213);
+            this.lblFilterStatus.Location = new System.Drawing.Point(18, 268);
             this.lblFilterStatus.Name = "lblFilterStatus";
             this.lblFilterStatus.Size = new System.Drawing.Size(87, 15);
             this.lblFilterStatus.Text = "Product Status:";
@@ -424,16 +424,16 @@ namespace LDIS.App.Forms
             "Active Only",
             "Inactive Only",
             "All Products"});
-            this.cboFilterStatus.Location = new System.Drawing.Point(18, 233);
+            this.cboFilterStatus.Location = new System.Drawing.Point(18, 292);
             this.cboFilterStatus.Name = "cboFilterStatus";
-            this.cboFilterStatus.Size = new System.Drawing.Size(175, 23);
+            this.cboFilterStatus.Size = new System.Drawing.Size(200, 23);
             this.cboFilterStatus.TabIndex = 3;
             this.cboFilterStatus.SelectedIndexChanged += new System.EventHandler(this.Filter_Changed);
 
             // btnResetFilters
-            this.btnResetFilters.Location = new System.Drawing.Point(18, 275);
+            this.btnResetFilters.Location = new System.Drawing.Point(18, 344);
             this.btnResetFilters.Name = "btnResetFilters";
-            this.btnResetFilters.Size = new System.Drawing.Size(175, 30);
+            this.btnResetFilters.Size = new System.Drawing.Size(200, 32);
             this.btnResetFilters.TabIndex = 4;
             this.btnResetFilters.Text = "Reset Filters";
             this.btnResetFilters.UseVisualStyleBackColor = true;
@@ -446,26 +446,26 @@ namespace LDIS.App.Forms
             this.pnlMainContent.Controls.Add(this.pnlGridToolbar);
             this.pnlMainContent.Controls.Add(this.pnlDashboardCards);
             this.pnlMainContent.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlMainContent.Location = new System.Drawing.Point(210, 64);
+            this.pnlMainContent.Location = new System.Drawing.Point(240, 74);
             this.pnlMainContent.Name = "pnlMainContent";
             this.pnlMainContent.Padding = new System.Windows.Forms.Padding(10);
-            this.pnlMainContent.Size = new System.Drawing.Size(798, 643);
+            this.pnlMainContent.Size = new System.Drawing.Size(1140, 643);
             this.pnlMainContent.TabIndex = 2;
 
-            //
+            // 
             // pnlDashboardCards
-            //
+            // 
             this.pnlDashboardCards.Controls.Add(this.tblDashboardCards);
             this.pnlDashboardCards.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlDashboardCards.Location = new System.Drawing.Point(10, 10);
             this.pnlDashboardCards.Name = "pnlDashboardCards";
-            this.pnlDashboardCards.Padding = new System.Windows.Forms.Padding(0, 0, 0, 8);
-            this.pnlDashboardCards.Size = new System.Drawing.Size(778, 80);
+            this.pnlDashboardCards.Padding = new System.Windows.Forms.Padding(0, 0, 0, 10);
+            this.pnlDashboardCards.Size = new System.Drawing.Size(1120, 106);
             this.pnlDashboardCards.TabIndex = 2;
 
-            //
+            // 
             // tblDashboardCards
-            //
+            // 
             this.tblDashboardCards.ColumnCount = 4;
             this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tblDashboardCards.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
@@ -481,12 +481,12 @@ namespace LDIS.App.Forms
             this.tblDashboardCards.Name = "tblDashboardCards";
             this.tblDashboardCards.RowCount = 1;
             this.tblDashboardCards.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tblDashboardCards.Size = new System.Drawing.Size(778, 72);
+            this.tblDashboardCards.Size = new System.Drawing.Size(1120, 96);
             this.tblDashboardCards.TabIndex = 0;
 
-            //
+            // 
             // pnlCardTotalProducts
-            //
+            // 
             this.pnlCardTotalProducts.BackColor = System.Drawing.Color.White;
             this.pnlCardTotalProducts.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCardTotalProducts.Controls.Add(this.lblCardTotalProductsHint);
@@ -497,7 +497,7 @@ namespace LDIS.App.Forms
             this.pnlCardTotalProducts.Location = new System.Drawing.Point(0, 0);
             this.pnlCardTotalProducts.Margin = new System.Windows.Forms.Padding(0, 0, 4, 0);
             this.pnlCardTotalProducts.Name = "pnlCardTotalProducts";
-            this.pnlCardTotalProducts.Size = new System.Drawing.Size(190, 72);
+            this.pnlCardTotalProducts.Size = new System.Drawing.Size(276, 96);
             this.pnlCardTotalProducts.TabIndex = 0;
             this.pnlCardTotalProducts.Click += new System.EventHandler(this.CardTotalProducts_Click);
 
@@ -506,7 +506,7 @@ namespace LDIS.App.Forms
             this.lblCardTotalProductsTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalProductsTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalProductsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(110)))), ((int)(((byte)(125)))));
-            this.lblCardTotalProductsTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardTotalProductsTitle.Location = new System.Drawing.Point(10, 8);
             this.lblCardTotalProductsTitle.Name = "lblCardTotalProductsTitle";
             this.lblCardTotalProductsTitle.Size = new System.Drawing.Size(130, 12);
             this.lblCardTotalProductsTitle.TabIndex = 0;
@@ -518,7 +518,7 @@ namespace LDIS.App.Forms
             this.lblCardTotalProductsValue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalProductsValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalProductsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
-            this.lblCardTotalProductsValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardTotalProductsValue.Location = new System.Drawing.Point(10, 28);
             this.lblCardTotalProductsValue.Name = "lblCardTotalProductsValue";
             this.lblCardTotalProductsValue.Size = new System.Drawing.Size(24, 28);
             this.lblCardTotalProductsValue.TabIndex = 1;
@@ -530,16 +530,16 @@ namespace LDIS.App.Forms
             this.lblCardTotalProductsHint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalProductsHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalProductsHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
-            this.lblCardTotalProductsHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardTotalProductsHint.Location = new System.Drawing.Point(10, 72);
             this.lblCardTotalProductsHint.Name = "lblCardTotalProductsHint";
             this.lblCardTotalProductsHint.Size = new System.Drawing.Size(95, 12);
             this.lblCardTotalProductsHint.TabIndex = 2;
             this.lblCardTotalProductsHint.Text = "All stock statuses";
             this.lblCardTotalProductsHint.Click += new System.EventHandler(this.CardTotalProducts_Click);
 
-            //
+            // 
             // pnlCardTotalUnits
-            //
+            // 
             this.pnlCardTotalUnits.BackColor = System.Drawing.Color.White;
             this.pnlCardTotalUnits.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCardTotalUnits.Controls.Add(this.lblCardTotalUnitsHint);
@@ -547,10 +547,10 @@ namespace LDIS.App.Forms
             this.pnlCardTotalUnits.Controls.Add(this.lblCardTotalUnitsTitle);
             this.pnlCardTotalUnits.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlCardTotalUnits.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCardTotalUnits.Location = new System.Drawing.Point(198, 0);
+            this.pnlCardTotalUnits.Location = new System.Drawing.Point(280, 0);
             this.pnlCardTotalUnits.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pnlCardTotalUnits.Name = "pnlCardTotalUnits";
-            this.pnlCardTotalUnits.Size = new System.Drawing.Size(186, 72);
+            this.pnlCardTotalUnits.Size = new System.Drawing.Size(272, 96);
             this.pnlCardTotalUnits.TabIndex = 1;
             this.pnlCardTotalUnits.Click += new System.EventHandler(this.CardTotalUnits_Click);
 
@@ -559,7 +559,7 @@ namespace LDIS.App.Forms
             this.lblCardTotalUnitsTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalUnitsTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalUnitsTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblCardTotalUnitsTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardTotalUnitsTitle.Location = new System.Drawing.Point(10, 8);
             this.lblCardTotalUnitsTitle.Name = "lblCardTotalUnitsTitle";
             this.lblCardTotalUnitsTitle.Size = new System.Drawing.Size(117, 12);
             this.lblCardTotalUnitsTitle.TabIndex = 0;
@@ -571,7 +571,7 @@ namespace LDIS.App.Forms
             this.lblCardTotalUnitsValue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalUnitsValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalUnitsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(128)))), ((int)(((byte)(185)))));
-            this.lblCardTotalUnitsValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardTotalUnitsValue.Location = new System.Drawing.Point(10, 28);
             this.lblCardTotalUnitsValue.Name = "lblCardTotalUnitsValue";
             this.lblCardTotalUnitsValue.Size = new System.Drawing.Size(24, 28);
             this.lblCardTotalUnitsValue.TabIndex = 1;
@@ -583,16 +583,16 @@ namespace LDIS.App.Forms
             this.lblCardTotalUnitsHint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardTotalUnitsHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardTotalUnitsHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(140)))), ((int)(((byte)(150)))), ((int)(((byte)(160)))));
-            this.lblCardTotalUnitsHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardTotalUnitsHint.Location = new System.Drawing.Point(10, 72);
             this.lblCardTotalUnitsHint.Name = "lblCardTotalUnitsHint";
             this.lblCardTotalUnitsHint.Size = new System.Drawing.Size(95, 12);
             this.lblCardTotalUnitsHint.TabIndex = 2;
             this.lblCardTotalUnitsHint.Text = "All active inventory";
             this.lblCardTotalUnitsHint.Click += new System.EventHandler(this.CardTotalUnits_Click);
 
-            //
+            // 
             // pnlCardLowStock
-            //
+            // 
             this.pnlCardLowStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(249)))), ((int)(((byte)(231)))));
             this.pnlCardLowStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCardLowStock.Controls.Add(this.lblCardLowStockHint);
@@ -600,10 +600,10 @@ namespace LDIS.App.Forms
             this.pnlCardLowStock.Controls.Add(this.lblCardLowStockTitle);
             this.pnlCardLowStock.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlCardLowStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCardLowStock.Location = new System.Drawing.Point(392, 0);
+            this.pnlCardLowStock.Location = new System.Drawing.Point(556, 0);
             this.pnlCardLowStock.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.pnlCardLowStock.Name = "pnlCardLowStock";
-            this.pnlCardLowStock.Size = new System.Drawing.Size(186, 72);
+            this.pnlCardLowStock.Size = new System.Drawing.Size(272, 96);
             this.pnlCardLowStock.TabIndex = 2;
             this.pnlCardLowStock.Click += new System.EventHandler(this.CardLowStock_Click);
 
@@ -612,7 +612,7 @@ namespace LDIS.App.Forms
             this.lblCardLowStockTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardLowStockTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardLowStockTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
-            this.lblCardLowStockTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardLowStockTitle.Location = new System.Drawing.Point(10, 8);
             this.lblCardLowStockTitle.Name = "lblCardLowStockTitle";
             this.lblCardLowStockTitle.Size = new System.Drawing.Size(117, 12);
             this.lblCardLowStockTitle.TabIndex = 0;
@@ -624,7 +624,7 @@ namespace LDIS.App.Forms
             this.lblCardLowStockValue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardLowStockValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardLowStockValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(211)))), ((int)(((byte)(84)))), ((int)(((byte)(0)))));
-            this.lblCardLowStockValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardLowStockValue.Location = new System.Drawing.Point(10, 28);
             this.lblCardLowStockValue.Name = "lblCardLowStockValue";
             this.lblCardLowStockValue.Size = new System.Drawing.Size(24, 28);
             this.lblCardLowStockValue.TabIndex = 1;
@@ -636,16 +636,16 @@ namespace LDIS.App.Forms
             this.lblCardLowStockHint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardLowStockHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardLowStockHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(110)))), ((int)(((byte)(40)))));
-            this.lblCardLowStockHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardLowStockHint.Location = new System.Drawing.Point(10, 72);
             this.lblCardLowStockHint.Name = "lblCardLowStockHint";
             this.lblCardLowStockHint.Size = new System.Drawing.Size(116, 12);
             this.lblCardLowStockHint.TabIndex = 2;
             this.lblCardLowStockHint.Text = "Stock <= Min Stock Level";
             this.lblCardLowStockHint.Click += new System.EventHandler(this.CardLowStock_Click);
 
-            //
+            // 
             // pnlCardOutOfStock
-            //
+            // 
             this.pnlCardOutOfStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(253)))), ((int)(((byte)(237)))), ((int)(((byte)(236)))));
             this.pnlCardOutOfStock.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pnlCardOutOfStock.Controls.Add(this.lblCardOutOfStockHint);
@@ -653,10 +653,10 @@ namespace LDIS.App.Forms
             this.pnlCardOutOfStock.Controls.Add(this.lblCardOutOfStockTitle);
             this.pnlCardOutOfStock.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pnlCardOutOfStock.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlCardOutOfStock.Location = new System.Drawing.Point(586, 0);
+            this.pnlCardOutOfStock.Location = new System.Drawing.Point(832, 0);
             this.pnlCardOutOfStock.Margin = new System.Windows.Forms.Padding(4, 0, 0, 0);
             this.pnlCardOutOfStock.Name = "pnlCardOutOfStock";
-            this.pnlCardOutOfStock.Size = new System.Drawing.Size(192, 72);
+            this.pnlCardOutOfStock.Size = new System.Drawing.Size(288, 96);
             this.pnlCardOutOfStock.TabIndex = 3;
             this.pnlCardOutOfStock.Click += new System.EventHandler(this.CardOutOfStock_Click);
 
@@ -665,7 +665,7 @@ namespace LDIS.App.Forms
             this.lblCardOutOfStockTitle.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardOutOfStockTitle.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardOutOfStockTitle.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(57)))), ((int)(((byte)(43)))));
-            this.lblCardOutOfStockTitle.Location = new System.Drawing.Point(8, 6);
+            this.lblCardOutOfStockTitle.Location = new System.Drawing.Point(10, 8);
             this.lblCardOutOfStockTitle.Name = "lblCardOutOfStockTitle";
             this.lblCardOutOfStockTitle.Size = new System.Drawing.Size(81, 12);
             this.lblCardOutOfStockTitle.TabIndex = 0;
@@ -677,7 +677,7 @@ namespace LDIS.App.Forms
             this.lblCardOutOfStockValue.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardOutOfStockValue.Font = new System.Drawing.Font("Segoe UI", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardOutOfStockValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60)))));
-            this.lblCardOutOfStockValue.Location = new System.Drawing.Point(8, 20);
+            this.lblCardOutOfStockValue.Location = new System.Drawing.Point(10, 28);
             this.lblCardOutOfStockValue.Name = "lblCardOutOfStockValue";
             this.lblCardOutOfStockValue.Size = new System.Drawing.Size(24, 28);
             this.lblCardOutOfStockValue.TabIndex = 1;
@@ -689,7 +689,7 @@ namespace LDIS.App.Forms
             this.lblCardOutOfStockHint.Cursor = System.Windows.Forms.Cursors.Hand;
             this.lblCardOutOfStockHint.Font = new System.Drawing.Font("Segoe UI", 7.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCardOutOfStockHint.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(80)))), ((int)(((byte)(70)))));
-            this.lblCardOutOfStockHint.Location = new System.Drawing.Point(8, 50);
+            this.lblCardOutOfStockHint.Location = new System.Drawing.Point(10, 72);
             this.lblCardOutOfStockHint.Name = "lblCardOutOfStockHint";
             this.lblCardOutOfStockHint.Size = new System.Drawing.Size(76, 12);
             this.lblCardOutOfStockHint.TabIndex = 2;
@@ -709,9 +709,9 @@ namespace LDIS.App.Forms
             this.pnlGridToolbar.Controls.Add(this.btnExport);
             this.pnlGridToolbar.Controls.Add(this.lblGridSummary);
             this.pnlGridToolbar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.pnlGridToolbar.Location = new System.Drawing.Point(10, 10);
+            this.pnlGridToolbar.Location = new System.Drawing.Point(10, 116);
             this.pnlGridToolbar.Name = "pnlGridToolbar";
-            this.pnlGridToolbar.Size = new System.Drawing.Size(778, 40);
+            this.pnlGridToolbar.Size = new System.Drawing.Size(1120, 40);
             this.pnlGridToolbar.TabIndex = 0;
 
             // btnStockIn
@@ -720,11 +720,11 @@ namespace LDIS.App.Forms
             this.btnStockIn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStockIn.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStockIn.ForeColor = System.Drawing.Color.White;
-            this.btnStockIn.Location = new System.Drawing.Point(0, 4);
+            this.btnStockIn.Location = new System.Drawing.Point(0, 5);
             this.btnStockIn.Name = "btnStockIn";
-            this.btnStockIn.Size = new System.Drawing.Size(94, 30);
+            this.btnStockIn.Size = new System.Drawing.Size(82, 30);
             this.btnStockIn.TabIndex = 0;
-            this.btnStockIn.Text = "+ Stock &IN";
+            this.btnStockIn.Text = "+ Stock";
             this.btnStockIn.UseVisualStyleBackColor = false;
             this.btnStockIn.Click += new System.EventHandler(this.btnStockIn_Click);
 
@@ -734,11 +734,11 @@ namespace LDIS.App.Forms
             this.btnStockOut.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStockOut.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStockOut.ForeColor = System.Drawing.Color.White;
-            this.btnStockOut.Location = new System.Drawing.Point(98, 4);
+            this.btnStockOut.Location = new System.Drawing.Point(88, 5);
             this.btnStockOut.Name = "btnStockOut";
-            this.btnStockOut.Size = new System.Drawing.Size(100, 30);
+            this.btnStockOut.Size = new System.Drawing.Size(78, 30);
             this.btnStockOut.TabIndex = 1;
-            this.btnStockOut.Text = "- Stock &OUT";
+            this.btnStockOut.Text = "- Stock";
             this.btnStockOut.UseVisualStyleBackColor = false;
             this.btnStockOut.Click += new System.EventHandler(this.btnStockOut_Click);
 
@@ -748,11 +748,11 @@ namespace LDIS.App.Forms
             this.btnStockAdjust.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStockAdjust.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnStockAdjust.ForeColor = System.Drawing.Color.White;
-            this.btnStockAdjust.Location = new System.Drawing.Point(202, 4);
+            this.btnStockAdjust.Location = new System.Drawing.Point(172, 5);
             this.btnStockAdjust.Name = "btnStockAdjust";
-            this.btnStockAdjust.Size = new System.Drawing.Size(82, 30);
+            this.btnStockAdjust.Size = new System.Drawing.Size(88, 30);
             this.btnStockAdjust.TabIndex = 2;
-            this.btnStockAdjust.Text = "&Adjust...";
+            this.btnStockAdjust.Text = "Adjust...";
             this.btnStockAdjust.UseVisualStyleBackColor = false;
             this.btnStockAdjust.Click += new System.EventHandler(this.btnStockAdjust_Click);
 
@@ -762,47 +762,47 @@ namespace LDIS.App.Forms
             this.btnTransactions.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTransactions.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTransactions.ForeColor = System.Drawing.Color.White;
-            this.btnTransactions.Location = new System.Drawing.Point(288, 4);
+            this.btnTransactions.Location = new System.Drawing.Point(266, 5);
             this.btnTransactions.Name = "btnTransactions";
-            this.btnTransactions.Size = new System.Drawing.Size(88, 30);
+            this.btnTransactions.Size = new System.Drawing.Size(94, 30);
             this.btnTransactions.TabIndex = 3;
-            this.btnTransactions.Text = "&History...";
+            this.btnTransactions.Text = "History...";
             this.btnTransactions.UseVisualStyleBackColor = false;
             this.btnTransactions.Click += new System.EventHandler(this.btnTransactions_Click);
 
             // btnEditProduct
-            this.btnEditProduct.Location = new System.Drawing.Point(380, 4);
+            this.btnEditProduct.Location = new System.Drawing.Point(366, 5);
             this.btnEditProduct.Name = "btnEditProduct";
-            this.btnEditProduct.Size = new System.Drawing.Size(90, 30);
+            this.btnEditProduct.Size = new System.Drawing.Size(58, 30);
             this.btnEditProduct.TabIndex = 4;
-            this.btnEditProduct.Text = "&Edit Product";
+            this.btnEditProduct.Text = "Edit";
             this.btnEditProduct.UseVisualStyleBackColor = true;
             this.btnEditProduct.Click += new System.EventHandler(this.btnEditProduct_Click);
 
             // btnToggleStatus
-            this.btnToggleStatus.Location = new System.Drawing.Point(474, 4);
+            this.btnToggleStatus.Location = new System.Drawing.Point(430, 5);
             this.btnToggleStatus.Name = "btnToggleStatus";
-            this.btnToggleStatus.Size = new System.Drawing.Size(96, 30);
+            this.btnToggleStatus.Size = new System.Drawing.Size(108, 30);
             this.btnToggleStatus.TabIndex = 5;
-            this.btnToggleStatus.Text = "&Deactivate";
+            this.btnToggleStatus.Text = "Deactivate";
             this.btnToggleStatus.UseVisualStyleBackColor = true;
             this.btnToggleStatus.Click += new System.EventHandler(this.btnToggleStatus_Click);
 
             // btnRefresh
-            this.btnRefresh.Location = new System.Drawing.Point(574, 4);
+            this.btnRefresh.Location = new System.Drawing.Point(544, 5);
             this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(88, 30);
+            this.btnRefresh.Size = new System.Drawing.Size(82, 30);
             this.btnRefresh.TabIndex = 6;
-            this.btnRefresh.Text = "&Refresh [F5]";
+            this.btnRefresh.Text = "Refresh";
             this.btnRefresh.UseVisualStyleBackColor = true;
             this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
 
             // btnExport
-            this.btnExport.Location = new System.Drawing.Point(666, 4);
+            this.btnExport.Location = new System.Drawing.Point(632, 5);
             this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(108, 30);
+            this.btnExport.Size = new System.Drawing.Size(76, 30);
             this.btnExport.TabIndex = 7;
-            this.btnExport.Text = "&Export CSV...";
+            this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
 
@@ -810,7 +810,7 @@ namespace LDIS.App.Forms
             this.lblGridSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lblGridSummary.AutoSize = true;
             this.lblGridSummary.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lblGridSummary.Location = new System.Drawing.Point(658, 12);
+            this.lblGridSummary.Location = new System.Drawing.Point(736, 12);
             this.lblGridSummary.Name = "lblGridSummary";
             this.lblGridSummary.Size = new System.Drawing.Size(115, 15);
             this.lblGridSummary.Text = "Right-click for menu";
@@ -857,6 +857,7 @@ namespace LDIS.App.Forms
             this.mnuToggleStatus.Click += new System.EventHandler(this.btnToggleStatus_Click);
 
             // dgvProducts
+            this.dgvProducts.AutoGenerateColumns = false;
             this.dgvProducts.AllowUserToAddRows = false;
             this.dgvProducts.AllowUserToDeleteRows = false;
             this.dgvProducts.AllowUserToResizeRows = false;
@@ -894,10 +895,10 @@ namespace LDIS.App.Forms
             // Columns setup
             this.colSKU.DataPropertyName = "SKU";
             this.colSKU.HeaderText = "SKU";
-            this.colSKU.Width = 110;
+            this.colSKU.Width = 100;
 
             this.colName.DataPropertyName = "Name";
-            this.colName.HeaderText = "Product Name";
+            this.colName.HeaderText = "Name";
             this.colName.Width = 180;
 
             this.colCategory.DataPropertyName = "CategoryName";
@@ -922,23 +923,23 @@ namespace LDIS.App.Forms
 
             this.colPurchasePrice.DataPropertyName = "PurchasePriceFormatted";
             this.colPurchasePrice.DefaultCellStyle = cellStyleRight;
-            this.colPurchasePrice.HeaderText = "Purchase (Rp)";
-            this.colPurchasePrice.Width = 110;
+            this.colPurchasePrice.HeaderText = "Purchase Price";
+            this.colPurchasePrice.Width = 115;
 
             this.colSellingPrice.DataPropertyName = "SellingPriceFormatted";
             this.colSellingPrice.DefaultCellStyle = cellStyleRight;
-            this.colSellingPrice.HeaderText = "Selling (Rp)";
-            this.colSellingPrice.Width = 110;
+            this.colSellingPrice.HeaderText = "Selling Price";
+            this.colSellingPrice.Width = 115;
 
             this.colMinStock.DataPropertyName = "MinStockLevel";
             this.colMinStock.DefaultCellStyle = cellStyleRight;
-            this.colMinStock.HeaderText = "Min";
-            this.colMinStock.Width = 55;
+            this.colMinStock.HeaderText = "Min Stock";
+            this.colMinStock.Width = 80;
 
             this.colCurrentStock.DataPropertyName = "CurrentStock";
             this.colCurrentStock.DefaultCellStyle = cellStyleRight;
-            this.colCurrentStock.HeaderText = "Stock";
-            this.colCurrentStock.Width = 60;
+            this.colCurrentStock.HeaderText = "Current Stock";
+            this.colCurrentStock.Width = 90;
 
             this.colStatus.DataPropertyName = "StatusText";
             this.colStatus.HeaderText = "Status";
@@ -993,14 +994,14 @@ namespace LDIS.App.Forms
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(245)))), ((int)(((byte)(247)))), ((int)(((byte)(250)))));
-            this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.ClientSize = new System.Drawing.Size(1380, 720);
             this.Controls.Add(this.pnlMainContent);
             this.Controls.Add(this.pnlSidebar);
             this.Controls.Add(this.pnlHeader);
             this.Controls.Add(this.statusStrip);
             this.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.KeyPreview = true;
-            this.MinimumSize = new System.Drawing.Size(1024, 768);
+            this.MinimumSize = new System.Drawing.Size(1396, 620);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "LDIS - Lightweight Desktop Inventory System";
