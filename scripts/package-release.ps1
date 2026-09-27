@@ -1,12 +1,12 @@
 # ==============================================================================
 # LDIS Release Packaging Script
-# Produces a clean, deterministic, standalone release package for LDIS v1.0.1
+# Produces a clean, deterministic, standalone release package for LDIS v1.1.1
 # ==============================================================================
 
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "1.0.1"
+    [string]$Version = "1.1.1"
 )
 
 $ErrorActionPreference = "Stop"

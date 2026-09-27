@@ -31,7 +31,7 @@ LDIS (Lightweight Desktop Inventory System) is an offline-first Windows desktop 
 
 ## System Requirements
 
-1. **Operating System:** Windows 7 SP1 (32-bit or 64-bit) or higher.
+1. **Operating System:** Windows 7 SP1 (32-bit or 64-bit) or higher. The codebase preserves the Windows 7 SP1 / .NET Framework 4.8 target, while actual Win7 runtime compatibility remains to be empirically tested on target hardware.
 2. **Runtime:** Microsoft .NET Framework 4.8.
 3. **External Dependencies:** None. SQLite native interop libraries (`x86` and `x64`) are statically compiled and bundled with the application.
 
@@ -70,8 +70,8 @@ To create a clean, deterministic standalone distribution package:
 ```
 
 This generates:
-* `dist\LDIS-v1.0.1\` (extracted application folder)
-* `dist\LDIS-v1.0.1.zip` (compressed standalone release archive)
+* `dist\LDIS-v1.1.1\` (extracted application folder)
+* `dist\LDIS-v1.1.1.zip` (compressed standalone release archive)
 
 For full deployment and operations instructions, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
 

@@ -26,20 +26,27 @@ The **Lightweight Desktop Inventory System (LDIS)** is a standalone, offline-fir
 
 ## 3. Package Structure & Files
 
-The release package is distributed as a clean standalone directory (`LDIS-v1.0.1/`) or compressed archive (`LDIS-v1.0.1.zip`):
+The release package is distributed as a clean standalone directory (`LDIS-v1.1.1/`) or compressed archive (`LDIS-v1.1.1.zip`):
 
 ```text
-LDIS-v1.0.1/
-├── LDIS.App.exe            - Main Windows Forms application executable
-├── LDIS.App.exe.config     - .NET Framework 4.8 CLR startup configuration
-├── LDIS.Core.dll           - Domain logic, data access, export, and backup services
-├── System.Data.SQLite.dll  - Managed ADO.NET SQLite data provider
-├── README.txt              - Plaintext quick-start guide for end users
+LDIS-v1.1.1/
+├── LDIS.App.exe                        - Main Windows Forms application executable (with embedded icon)
+├── LDIS.App.exe.config                 - .NET Framework 4.8 CLR startup configuration
+├── LDIS.Core.dll                       - Domain logic, data access, export, and backup services
+├── ClosedXML.dll                       - OpenXML spreadsheet generation engine
+├── DocumentFormat.OpenXml.dll          - OpenXML standard document format library
+├── ExcelNumberFormat.dll               - Excel number formatting utility
+├── System.IO.FileSystem.Primitives.dll - File system primitives dependency
+├── System.IO.Packaging.dll             - Open packaging conventions library
+├── System.Data.SQLite.dll              - Managed ADO.NET SQLite data provider
+├── README.txt                          - Plaintext quick-start guide for end users
 ├── x86/
-│   └── SQLite.Interop.dll  - 32-bit native SQLite engine (auto-loaded on 32-bit systems)
+│   └── SQLite.Interop.dll              - 32-bit native SQLite engine (auto-loaded on 32-bit systems)
 └── x64/
-    └── SQLite.Interop.dll  - 64-bit native SQLite engine (auto-loaded on 64-bit systems)
+    └── SQLite.Interop.dll              - 64-bit native SQLite engine (auto-loaded on 64-bit systems)
 ```
+
+> **Note on Application Icon:** The application icon is embedded directly into the PE header of `LDIS.App.exe` as a Win32 `RT_GROUP_ICON` resource (`app.ico` is a source/build asset only and is intentionally not distributed alongside the binary).
 
 ---
 
@@ -48,7 +55,7 @@ LDIS-v1.0.1/
 LDIS is an **xcopy-deployable** application that requires no installer, no Windows Registry configuration, and no COM registrations.
 
 ### Standard Desktop Deployment
-1. Extract `LDIS-v1.0.1.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
+1. Extract `LDIS-v1.1.1.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
 2. Right-click `LDIS.App.exe` and select **Send to → Desktop (create shortcut)**.
 3. Launch the application from the shortcut.
 
@@ -92,11 +99,11 @@ LDIS automatically configures its storage location upon launch:
 
 ## 7. Windows 7 SP1 Release Verification Checklist
 
-Because development occurs on modern Windows environments, final production sign-off on Windows 7 factory computers requires completing this checklist on an actual physical or virtual Windows 7 SP1 machine:
+The codebase preserves the Windows 7 SP1 and .NET Framework 4.8 target configuration. Because development occurs on modern Windows environments, actual Windows 7 runtime compatibility remains to be empirically tested on target hardware. Final production sign-off on Windows 7 factory computers requires completing this checklist on an actual physical or virtual Windows 7 SP1 machine:
 
 - [ ] **Windows 7 Service Pack 1:** Confirm OS is Windows 7 SP1 (Build 7601) via `winver`.
 - [ ] **.NET 4.8 Installation:** Verify .NET 4.8 is present (Release key `>= 528040` in `HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full`).
-- [ ] **Clean Extraction:** Extract `LDIS-v1.0.1.zip` to a standard user directory (e.g. `C:\LDIS`).
+- [ ] **Clean Extraction:** Extract `LDIS-v1.1.1.zip` to a standard user directory (e.g. `C:\LDIS`).
 - [ ] **First Launch:** Launch `LDIS.App.exe` as a standard (non-admin) user. Confirm startup without missing DLL errors.
 - [ ] **Database Creation:** Verify `%LocalAppData%\LDIS\inventory.db` is created and status bar shows connected database.
 - [ ] **Core Workflow:**

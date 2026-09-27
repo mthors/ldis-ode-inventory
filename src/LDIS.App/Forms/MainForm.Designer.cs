@@ -20,6 +20,7 @@ namespace LDIS.App.Forms
         private System.Windows.Forms.Button btnNewProduct;
         private System.Windows.Forms.Button btnCategories;
         private System.Windows.Forms.Button btnBackup;
+        private System.Windows.Forms.Button btnAbout;
 
         private System.Windows.Forms.Panel pnlSidebar;
         private System.Windows.Forms.Label lblFiltersTitle;
@@ -116,6 +117,7 @@ namespace LDIS.App.Forms
             this.btnNewProduct = new System.Windows.Forms.Button();
             this.btnCategories = new System.Windows.Forms.Button();
             this.btnBackup = new System.Windows.Forms.Button();
+            this.btnAbout = new System.Windows.Forms.Button();
 
             this.pnlSidebar = new System.Windows.Forms.Panel();
             this.lblFiltersTitle = new System.Windows.Forms.Label();
@@ -200,6 +202,7 @@ namespace LDIS.App.Forms
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(62)))), ((int)(((byte)(80)))));
+            this.pnlHeader.Controls.Add(this.btnAbout);
             this.pnlHeader.Controls.Add(this.btnBackup);
             this.pnlHeader.Controls.Add(this.btnCategories);
             this.pnlHeader.Controls.Add(this.btnNewProduct);
@@ -235,7 +238,7 @@ namespace LDIS.App.Forms
             // txtSearch
             this.txtSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txtSearch.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtSearch.Location = new System.Drawing.Point(326, 24);
+            this.txtSearch.Location = new System.Drawing.Point(246, 24);
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(180, 25);
             this.txtSearch.TabIndex = 0;
@@ -248,7 +251,7 @@ namespace LDIS.App.Forms
             this.btnSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSearch.ForeColor = System.Drawing.Color.White;
-            this.btnSearch.Location = new System.Drawing.Point(512, 22);
+            this.btnSearch.Location = new System.Drawing.Point(432, 22);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(86, 29);
             this.btnSearch.TabIndex = 1;
@@ -263,7 +266,7 @@ namespace LDIS.App.Forms
             this.btnClearSearch.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnClearSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearSearch.ForeColor = System.Drawing.Color.White;
-            this.btnClearSearch.Location = new System.Drawing.Point(604, 22);
+            this.btnClearSearch.Location = new System.Drawing.Point(524, 22);
             this.btnClearSearch.Name = "btnClearSearch";
             this.btnClearSearch.Size = new System.Drawing.Size(72, 29);
             this.btnClearSearch.TabIndex = 2;
@@ -278,7 +281,7 @@ namespace LDIS.App.Forms
             this.btnNewProduct.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnNewProduct.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNewProduct.ForeColor = System.Drawing.Color.White;
-            this.btnNewProduct.Location = new System.Drawing.Point(682, 22);
+            this.btnNewProduct.Location = new System.Drawing.Point(602, 22);
             this.btnNewProduct.Name = "btnNewProduct";
             this.btnNewProduct.Size = new System.Drawing.Size(88, 29);
             this.btnNewProduct.TabIndex = 3;
@@ -293,7 +296,7 @@ namespace LDIS.App.Forms
             this.btnCategories.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCategories.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCategories.ForeColor = System.Drawing.Color.White;
-            this.btnCategories.Location = new System.Drawing.Point(776, 22);
+            this.btnCategories.Location = new System.Drawing.Point(696, 22);
             this.btnCategories.Name = "btnCategories";
             this.btnCategories.Size = new System.Drawing.Size(120, 29);
             this.btnCategories.TabIndex = 4;
@@ -308,13 +311,28 @@ namespace LDIS.App.Forms
             this.btnBackup.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBackup.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBackup.ForeColor = System.Drawing.Color.White;
-            this.btnBackup.Location = new System.Drawing.Point(902, 22);
+            this.btnBackup.Location = new System.Drawing.Point(822, 22);
             this.btnBackup.Name = "btnBackup";
-            this.btnBackup.Size = new System.Drawing.Size(90, 29);
+            this.btnBackup.Size = new System.Drawing.Size(86, 29);
             this.btnBackup.TabIndex = 5;
             this.btnBackup.Text = "Backup";
             this.btnBackup.UseVisualStyleBackColor = false;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
+
+            // btnAbout
+            this.btnAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(73)))), ((int)(((byte)(94)))));
+            this.btnAbout.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(90)))), ((int)(((byte)(110)))));
+            this.btnAbout.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAbout.Font = new System.Drawing.Font("Segoe UI", 8.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAbout.ForeColor = System.Drawing.Color.White;
+            this.btnAbout.Location = new System.Drawing.Point(914, 22);
+            this.btnAbout.Name = "btnAbout";
+            this.btnAbout.Size = new System.Drawing.Size(78, 29);
+            this.btnAbout.TabIndex = 6;
+            this.btnAbout.Text = "About";
+            this.btnAbout.UseVisualStyleBackColor = false;
+            this.btnAbout.Click += new System.EventHandler(this.btnAbout_Click);
 
             // 
             // pnlSidebar
@@ -1004,7 +1022,7 @@ namespace LDIS.App.Forms
             this.MinimumSize = new System.Drawing.Size(1396, 620);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LDIS - Lightweight Desktop Inventory System";
+            this.Text = "LDIS - Lightweight Desktop Inventory System | Created by Thor";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MainForm_KeyDown);
 

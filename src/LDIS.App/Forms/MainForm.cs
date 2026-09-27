@@ -48,6 +48,14 @@ namespace LDIS.App.Forms
             _backupService = backupService ?? new BackupService(connectionFactory);
 
             InitializeComponent();
+            try
+            {
+                this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+            }
+            catch
+            {
+                // Fallback gracefully if icon extraction is unavailable
+            }
             dgvProducts.AutoGenerateColumns = false;
         }
 
@@ -121,6 +129,12 @@ namespace LDIS.App.Forms
                 e.Handled = true;
                 e.SuppressKeyPress = true;
                 btnRefresh.PerformClick();
+            }
+            else if (e.KeyCode == Keys.F1)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                btnAbout.PerformClick();
             }
         }
 
@@ -815,6 +829,14 @@ namespace LDIS.App.Forms
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );
+            }
+        }
+
+        private void btnAbout_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new AboutForm())
+            {
+                dlg.ShowDialog(this);
             }
         }
     }
