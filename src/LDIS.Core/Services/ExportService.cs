@@ -164,5 +164,57 @@ namespace LDIS.Core.Services
                 ExportTransactionsToCsv(transactions, writer);
             }
         }
+
+        public void ExportProductsToExcel(IEnumerable<ItemListItemDto> items, Stream stream)
+        {
+            if (items == null) throw new ArgumentNullException("items");
+            if (stream == null) throw new ArgumentNullException("stream");
+
+            var excel = new ExcelWriter();
+            excel.WriteProducts(items, stream);
+        }
+
+        public void ExportProductsToExcel(IEnumerable<ItemListItemDto> items, string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentException("File path cannot be null or empty.", "filePath");
+
+            string dir = Path.GetDirectoryName(filePath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                ExportProductsToExcel(items, stream);
+            }
+        }
+
+        public void ExportTransactionsToExcel(IEnumerable<TransactionListItemDto> transactions, Stream stream)
+        {
+            if (transactions == null) throw new ArgumentNullException("transactions");
+            if (stream == null) throw new ArgumentNullException("stream");
+
+            var excel = new ExcelWriter();
+            excel.WriteTransactions(transactions, stream);
+        }
+
+        public void ExportTransactionsToExcel(IEnumerable<TransactionListItemDto> transactions, string filePath)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+                throw new ArgumentException("File path cannot be null or empty.", "filePath");
+
+            string dir = Path.GetDirectoryName(filePath);
+            if (!string.IsNullOrEmpty(dir) && !Directory.Exists(dir))
+            {
+                Directory.CreateDirectory(dir);
+            }
+
+            using (var stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                ExportTransactionsToExcel(transactions, stream);
+            }
+        }
     }
 }

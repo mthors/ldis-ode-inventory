@@ -67,6 +67,11 @@ $whitelist = @(
     @{ Source = "LDIS.App.exe"; Dest = "LDIS.App.exe" },
     @{ Source = "LDIS.App.exe.config"; Dest = "LDIS.App.exe.config" },
     @{ Source = "LDIS.Core.dll"; Dest = "LDIS.Core.dll" },
+    @{ Source = "ClosedXML.dll"; Dest = "ClosedXML.dll" },
+    @{ Source = "DocumentFormat.OpenXml.dll"; Dest = "DocumentFormat.OpenXml.dll" },
+    @{ Source = "ExcelNumberFormat.dll"; Dest = "ExcelNumberFormat.dll" },
+    @{ Source = "System.IO.FileSystem.Primitives.dll"; Dest = "System.IO.FileSystem.Primitives.dll" },
+    @{ Source = "System.IO.Packaging.dll"; Dest = "System.IO.Packaging.dll" },
     @{ Source = "System.Data.SQLite.dll"; Dest = "System.Data.SQLite.dll" },
     @{ Source = "x86\SQLite.Interop.dll"; Dest = "x86\SQLite.Interop.dll" },
     @{ Source = "x64\SQLite.Interop.dll"; Dest = "x64\SQLite.Interop.dll" }
@@ -126,11 +131,12 @@ DATABASE BACKUP
   header and select a safe destination (such as a USB drive or secondary disk).
 * Database backups are self-contained standard SQLite database files (.db).
 
-CSV EXPORT
-----------
-* Product catalogues and transaction histories can be exported to CSV at any
-  time using the "Export CSV..." buttons. Exported files are formatted in UTF-8
-  with BOM for direct compatibility with Microsoft Excel.
+EXCEL & CSV EXPORT
+------------------
+* Product catalogues and transaction histories can be exported to Excel (.xlsx)
+  or CSV format at any time using the "Export" buttons. Exported CSV files are
+  formatted in UTF-8 with BOM, and Excel files are formatted as standard OpenXML
+  workbooks with styled headers, numeric formatting, and auto-filters.
 
 SUPPORT & TROUBLESHOOTING
 -------------------------
@@ -148,6 +154,11 @@ $requiredFiles = @(
     "LDIS.App.exe",
     "LDIS.App.exe.config",
     "LDIS.Core.dll",
+    "ClosedXML.dll",
+    "DocumentFormat.OpenXml.dll",
+    "ExcelNumberFormat.dll",
+    "System.IO.FileSystem.Primitives.dll",
+    "System.IO.Packaging.dll",
     "System.Data.SQLite.dll",
     "x86\SQLite.Interop.dll",
     "x64\SQLite.Interop.dll",

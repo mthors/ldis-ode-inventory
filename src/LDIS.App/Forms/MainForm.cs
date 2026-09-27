@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using LDIS.Core.Data;
@@ -658,21 +659,56 @@ namespace LDIS.App.Forms
 
                 using (var sfd = new SaveFileDialog())
                 {
-                    sfd.Title = "Export Products to CSV";
-                    sfd.Filter = "CSV Files (*.csv)|*.csv|All Files (*.*)|*.*";
+                    sfd.Title = "Export Products";
+                    sfd.Filter = "Excel Workbook (*.xlsx)|*.xlsx|CSV (Comma delimited) (*.csv)|*.csv|All Files (*.*)|*.*";
                     sfd.FilterIndex = 1;
-                    sfd.DefaultExt = "csv";
+                    sfd.DefaultExt = "xlsx";
                     sfd.AddExtension = true;
                     sfd.OverwritePrompt = true;
                     sfd.RestoreDirectory = true;
-                    sfd.FileName = string.Format("products_export_{0:yyyyMMdd_HHmmss}.csv", DateTime.Now);
+                    sfd.FileName = string.Format("products_export_{0:yyyyMMdd_HHmmss}.xlsx", DateTime.Now);
 
                     if (sfd.ShowDialog(this) == DialogResult.OK)
                     {
-                        _exportService.ExportProductsToCsv(_currentProducts, sfd.FileName);
+                        string selectedPath = sfd.FileName;
+                        string ext = Path.GetExtension(selectedPath);
+                        bool isExcel;
+
+                        if (string.Equals(ext, ".xlsx", StringComparison.OrdinalIgnoreCase))
+                        {
+                            isExcel = true;
+                        }
+                        else if (string.Equals(ext, ".csv", StringComparison.OrdinalIgnoreCase))
+                        {
+                            isExcel = false;
+                        }
+                        else
+                        {
+                            if (sfd.FilterIndex == 2)
+                            {
+                                selectedPath = Path.ChangeExtension(selectedPath, ".csv");
+                                isExcel = false;
+                            }
+                            else
+                            {
+                                selectedPath = Path.ChangeExtension(selectedPath, ".xlsx");
+                                isExcel = true;
+                            }
+                        }
+
+                        if (isExcel)
+                        {
+                            _exportService.ExportProductsToExcel(_currentProducts, selectedPath);
+                        }
+                        else
+                        {
+                            _exportService.ExportProductsToCsv(_currentProducts, selectedPath);
+                        }
+
+                        string formatLabel = isExcel ? "Excel" : "CSV";
                         MessageBox.Show(
                             this,
-                            string.Format("Successfully exported {0:N0} products to:\n{1}", _currentProducts.Count, sfd.FileName),
+                            string.Format("Successfully exported {0:N0} products to {1}:\n{2}", _currentProducts.Count, formatLabel, selectedPath),
                             "Export Completed",
                             MessageBoxButtons.OK,
                             MessageBoxIcon.Information
