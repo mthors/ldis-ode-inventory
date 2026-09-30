@@ -1,12 +1,12 @@
 # ==============================================================================
 # LDIS Release Packaging Script
-# Produces a clean, deterministic, standalone release package for LDIS v1.1.1
+# Produces a clean, deterministic, standalone release package for LDIS v1.2.0
 # ==============================================================================
 
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "1.1.1"
+    [string]$Version = "1.2.0"
 )
 
 $ErrorActionPreference = "Stop"
@@ -131,8 +131,10 @@ DATABASE BACKUP
   header and select a safe destination (such as a USB drive or secondary disk).
 * Database backups are self-contained standard SQLite database files (.db).
 
-EXCEL & CSV EXPORT
-------------------
+EXCEL IMPORT & EXPORT
+---------------------
+* Product catalogues can be imported in bulk using "Import..." and the downloadable
+  Excel template (LDIS_Product_Import_Template.xlsx).
 * Product catalogues and transaction histories can be exported to Excel (.xlsx)
   or CSV format at any time using the "Export" buttons. Exported CSV files are
   formatted in UTF-8 with BOM, and Excel files are formatted as standard OpenXML

@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using LDIS.Core.Data;
+using LDIS.Core.Data.Repositories;
 using LDIS.Core.DTOs;
 using LDIS.Core.Models;
 using LDIS.Core.Services;
@@ -20,6 +21,7 @@ namespace LDIS.App.Forms
         private readonly IStockService _stockService;
         private readonly IExportService _exportService;
         private readonly IBackupService _backupService;
+        private readonly IProductImportService _importService;
 
         private List<ItemListItemDto> _currentProducts = new List<ItemListItemDto>();
         private bool _isInitialLoading = true;
@@ -31,7 +33,8 @@ namespace LDIS.App.Forms
             ICategoryService categoryService,
             IStockService stockService,
             IExportService exportService = null,
-            IBackupService backupService = null)
+            IBackupService backupService = null,
+            IProductImportService importService = null)
         {
             if (connectionFactory == null) throw new ArgumentNullException("connectionFactory");
             if (initializer == null) throw new ArgumentNullException("initializer");
@@ -46,6 +49,10 @@ namespace LDIS.App.Forms
             _stockService = stockService;
             _exportService = exportService ?? new ExportService();
             _backupService = backupService ?? new BackupService(connectionFactory);
+            _importService = importService ?? new ProductImportService(
+                new ItemRepository(connectionFactory),
+                new CategoryRepository(connectionFactory)
+            );
 
             InitializeComponent();
             try
@@ -81,6 +88,10 @@ namespace LDIS.App.Forms
                 cboFilterStockStatus.SelectedIndex = 0; // All Stock
                 cboFilterGender.SelectedIndex = 0;      // All Genders
                 cboFilterStatus.SelectedIndex = 0;      // Active Only
+
+                // Ensure Import button flows naturally after Export button across all DPI scaling factors
+                btnImport.Location = new Point(btnExport.Right + 6, btnExport.Top);
+                btnImport.Size = btnExport.Size;
 
                 _isInitialLoading = false;
                 RefreshProductList();
@@ -756,6 +767,30 @@ namespace LDIS.App.Forms
                     this,
                     "An unexpected error occurred during product export:\n" + ex.Message,
                     "Export Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error
+                );
+            }
+        }
+
+        private void btnImport_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (var form = new ProductImportForm(_importService))
+                {
+                    if (form.ShowDialog(this) == DialogResult.OK)
+                    {
+                        RefreshProductList();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    this,
+                    "Error opening Product Import dialog:\n" + ex.Message,
+                    "Import Error",
                     MessageBoxButtons.OK,
                     MessageBoxIcon.Error
                 );

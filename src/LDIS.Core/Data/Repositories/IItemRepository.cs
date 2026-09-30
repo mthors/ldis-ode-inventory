@@ -15,5 +15,6 @@ namespace LDIS.Core.Data.Repositories
         IEnumerable<ItemListItemDto> Search(ItemSearchCriteria criteria);
         ProductDistinctAttributesDto GetDistinctAttributes();
         DashboardSummaryDto GetDashboardSummary();
+        int CreateBatch(IEnumerable<Item> items);
     }
 }

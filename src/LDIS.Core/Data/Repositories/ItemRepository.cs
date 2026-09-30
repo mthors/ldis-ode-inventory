@@ -378,6 +378,58 @@ namespace LDIS.Core.Data.Repositories
             cmd.Parameters.AddWithValue("@IsActive", item.IsActive ? 1 : 0);
         }
 
+        public int CreateBatch(IEnumerable<Item> items)
+        {
+            if (items == null)
+            {
+                throw new ArgumentNullException("items");
+            }
+
+            int count = 0;
+            using (var conn = _connectionFactory.CreateOpenConnection())
+            using (var trans = conn.BeginTransaction())
+            {
+                try
+                {
+                    using (var cmd = conn.CreateCommand())
+                    {
+                        cmd.Transaction = trans;
+                        cmd.CommandText = @"
+                            INSERT INTO Items (
+                                SKU, Name, CategoryID, Brand, Color, Size, Gender,
+                                PurchasePrice, SellingPrice, MinStockLevel, CurrentStock, IsActive
+                            ) VALUES (
+                                @SKU, @Name, @CategoryID, @Brand, @Color, @Size, @Gender,
+                                @PurchasePrice, @SellingPrice, @MinStockLevel, 0, 1
+                            );
+                            SELECT last_insert_rowid();";
+
+                        foreach (var item in items)
+                        {
+                            if (item == null) continue;
+
+                            cmd.Parameters.Clear();
+                            item.IsActive = true;
+                            item.CurrentStock = 0;
+                            BindItemParameters(cmd, item);
+
+                            long id = Convert.ToInt64(cmd.ExecuteScalar());
+                            item.ItemID = id;
+                            count++;
+                        }
+                    }
+
+                    trans.Commit();
+                    return count;
+                }
+                catch
+                {
+                    trans.Rollback();
+                    throw;
+                }
+            }
+        }
+
         private static Item MapItem(IDataRecord reader)
         {
             return new Item

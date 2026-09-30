@@ -200,8 +200,8 @@ namespace LDIS.Core.Tests
         private void Test_AssemblyVersion_MatchesReleaseVersion()
         {
             var coreVersion = typeof(Item).Assembly.GetName().Version;
-            Assert(coreVersion.Major == 1 && coreVersion.Minor == 1 && coreVersion.Build == 1,
-                string.Format("Expected LDIS.Core assembly version 1.1.1.x, found: {0}", coreVersion));
+            Assert(coreVersion.Major == 1 && coreVersion.Minor == 2 && coreVersion.Build == 0,
+                string.Format("Expected LDIS.Core assembly version 1.2.0.x, found: {0}", coreVersion));
         }
 
         private void Test_ItemSaveAndValidation_Workflow_PreservesAllBusinessRules()

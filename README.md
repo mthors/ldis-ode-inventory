@@ -1,83 +1,48 @@
 # LDIS — Lightweight Desktop Inventory System
 
-LDIS (Lightweight Desktop Inventory System) is an offline-first Windows desktop application designed for inventory and warehouse management on factory workstations running Windows 7 SP1 through Windows 11.
+A lightweight offline inventory management application for small warehouses and factory operations.
 
----
+**Created by Thor**
 
-## Key Features
+## Features
 
-* **Product Management:** Product catalog with SKU uniqueness, category organization, active/inactive lifecycle, and attribute tracking (Brand, Color, Size, Gender).
-* **Atomic Stock Operations:**
-  * **Stock IN:** Record inbound inventory receipts.
-  * **Stock OUT:** Record outbound stock dispatches with strict non-negative stock protection.
-  * **Stock ADJUSTMENT:** Record positive or negative corrections with mandatory audit reasons.
-* **Immutable Audit Trail:** Append-only inventory transaction history tracking date, type, delta, unit price, reference numbers, and operator details.
-* **Live Dashboard & Filtering:** Real-time KPI summary cards (Total Active Products, Total Units, Low Stock, Out of Stock) with interactive multi-criteria filtering.
-* **RFC 4180 CSV Export:** UTF-8 with BOM exports for product lists and transaction history, formatted for immediate compatibility with Microsoft Excel.
-* **Online SQLite Backup:** Consistent online database snapshots using SQLite's native backup API, safe against active reads and writes.
+- Product management
+- Category management
+- Stock In / Stock Out / Adjustment
+- Stock history and audit trail
+- Low-stock and out-of-stock monitoring
+- Excel and CSV export
+- Excel product master import
+- Downloadable Excel import template
+- Database backup
+- Offline SQLite database
+- Windows 7 SP1+ support target
 
----
+## Excel Product Import
 
-## Technology Stack
+Need to add hundreds of products?
 
-* **Operating System:** Windows 7 SP1 32/64-bit and newer (Windows 8, 8.1, 10, 11)
-* **Framework:** .NET Framework 4.8
-* **UI:** Windows Forms (WinForms) with Common-Controls 6.0 visual styles
-* **Database:** SQLite via official `System.Data.SQLite` ADO.NET provider (v1.0.118.0)
-* **Architecture:** `WinForms UI → Service Layer → Repository Layer → SQLite (ADO.NET)`
-* **Design Philosophy:** Offline-first, zero cloud dependencies, zero external database servers, no ORM, no DI container.
+1. Open **Import...**
+2. Download the Excel template.
+3. Fill in your products.
+4. Select the completed `.xlsx` file.
+5. Review validation results and preview.
+6. Confirm the import.
 
----
+Imported products start with **0 stock** and are activated automatically.
 
-## System Requirements
+## Technology
 
-1. **Operating System:** Windows 7 SP1 (32-bit or 64-bit) or higher. The codebase preserves the Windows 7 SP1 / .NET Framework 4.8 target, while actual Win7 runtime compatibility remains to be empirically tested on target hardware.
-2. **Runtime:** Microsoft .NET Framework 4.8.
-3. **External Dependencies:** None. SQLite native interop libraries (`x86` and `x64`) are statically compiled and bundled with the application.
+- C#
+- .NET Framework 4.8
+- WinForms
+- SQLite
+- ClosedXML
 
----
+## Version
 
-## Build from Source
+**v1.2.0**
 
-To build the complete solution using MSBuild:
+## License
 
-```powershell
-# Build Debug configuration
-& "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" "LDIS.sln" /p:Configuration=Debug /t:Rebuild /verbosity:minimal
-
-# Build Release configuration
-& "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe" "LDIS.sln" /p:Configuration=Release /t:Rebuild /verbosity:minimal
-```
-
----
-
-## Automated Test Suite
-
-The solution contains a self-contained automated test suite covering all milestones:
-
-```powershell
-& "tests\LDIS.Core.Tests\bin\Release\LDIS.Core.Tests.exe"
-```
-
----
-
-## Packaging & Deployment
-
-To create a clean, deterministic standalone distribution package:
-
-```powershell
-& powershell -NoProfile -ExecutionPolicy Bypass -File "scripts\package-release.ps1"
-```
-
-This generates:
-* `dist\LDIS-v1.1.1\` (extracted application folder)
-* `dist\LDIS-v1.1.1.zip` (compressed standalone release archive)
-
-For full deployment and operations instructions, see [DEPLOYMENT.md](docs/DEPLOYMENT.md).
-
----
-
-## Data Storage
-
-* **Standard Mode (Default):** `%LocalAppData%\LDIS\inventory.db`
-* **Portable Mode:** `.\database\inventory.db` (activated when a `database\` folder exists alongside `LDIS.App.exe`).
+This project is currently a personal software project and portfolio work.

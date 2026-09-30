@@ -26,10 +26,10 @@ The **Lightweight Desktop Inventory System (LDIS)** is a standalone, offline-fir
 
 ## 3. Package Structure & Files
 
-The release package is distributed as a clean standalone directory (`LDIS-v1.1.1/`) or compressed archive (`LDIS-v1.1.1.zip`):
+The release package is distributed as a clean standalone directory (`LDIS-v1.2.0/`) or compressed archive (`LDIS-v1.2.0.zip`):
 
 ```text
-LDIS-v1.1.1/
+LDIS-v1.2.0/
 ├── LDIS.App.exe                        - Main Windows Forms application executable (with embedded icon)
 ├── LDIS.App.exe.config                 - .NET Framework 4.8 CLR startup configuration
 ├── LDIS.Core.dll                       - Domain logic, data access, export, and backup services
@@ -55,7 +55,7 @@ LDIS-v1.1.1/
 LDIS is an **xcopy-deployable** application that requires no installer, no Windows Registry configuration, and no COM registrations.
 
 ### Standard Desktop Deployment
-1. Extract `LDIS-v1.1.1.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
+1. Extract `LDIS-v1.2.0.zip` to the target computer (e.g. `C:\LDIS` or `C:\Program Files\LDIS`).
 2. Right-click `LDIS.App.exe` and select **Send to → Desktop (create shortcut)**.
 3. Launch the application from the shortcut.
 
@@ -97,13 +97,42 @@ LDIS automatically configures its storage location upon launch:
 
 ---
 
-## 7. Windows 7 SP1 Release Verification Checklist
+## 7. Product Onboarding Workflow (Excel Import)
+
+LDIS supports onboarding product masters in bulk via `.xlsx` spreadsheets.
+
+### Onboarding Steps
+1. **Download Template:**
+   * Open the **Import...** dialog from the main window toolbar and click **Download Template (.xlsx)**.
+   * Save `LDIS_Product_Import_Template.xlsx`.
+2. **Populate the Workbook:**
+   * Enter new products into the `Products` worksheet using the exactly 10 supported columns:
+     `SKU`, `Name`, `Category`, `Brand`, `Color`, `Size`, `Gender`, `Purchase Price`, `Selling Price`, `Min Stock Level` (or `Min Stock`).
+   * Review the companion `Instructions` worksheet for constraints, data types, and controlled values (e.g., `Unisex`, `Men`, `Women`, `Kids`, `None / Unspecified`).
+   * Existing categories must already be created in LDIS before import (categories are not auto-created).
+3. **Select & Inspect:**
+   * In the **Import...** dialog, click **Browse...** to select the populated workbook.
+   * Inspection runs immediately in-memory without making any database changes.
+   * If any errors exist, the **Validation Errors** tab lists each issue by row, column, entered value, and description. The **Import Products** button remains disabled until all errors are resolved.
+4. **Preview & Confirm:**
+   * Switch to the **Preview Valid Products** tab to inspect all valid products to be imported.
+   * Click **Import Products** to trigger the final confirmation prompt.
+5. **Atomic Commit:**
+   * Upon user confirmation, all valid products are inserted in a single atomic database transaction.
+   * Every imported product starts with `CurrentStock = 0` and `IsActive = 1`.
+   * If any database error occurs during insertion, the entire batch is rolled back.
+
+> **Operational Note:** ClosedXML loads workbooks into memory; unusually large workbooks may increase memory usage.
+
+---
+
+## 8. Windows 7 SP1 Release Verification Checklist
 
 The codebase preserves the Windows 7 SP1 and .NET Framework 4.8 target configuration. Because development occurs on modern Windows environments, actual Windows 7 runtime compatibility remains to be empirically tested on target hardware. Final production sign-off on Windows 7 factory computers requires completing this checklist on an actual physical or virtual Windows 7 SP1 machine:
 
 - [ ] **Windows 7 Service Pack 1:** Confirm OS is Windows 7 SP1 (Build 7601) via `winver`.
 - [ ] **.NET 4.8 Installation:** Verify .NET 4.8 is present (Release key `>= 528040` in `HKLM\SOFTWARE\Microsoft\NET Framework Setup\NDP\v4\Full`).
-- [ ] **Clean Extraction:** Extract `LDIS-v1.1.1.zip` to a standard user directory (e.g. `C:\LDIS`).
+- [ ] **Clean Extraction:** Extract `LDIS-v1.2.0.zip` to a standard user directory (e.g. `C:\LDIS`).
 - [ ] **First Launch:** Launch `LDIS.App.exe` as a standard (non-admin) user. Confirm startup without missing DLL errors.
 - [ ] **Database Creation:** Verify `%LocalAppData%\LDIS\inventory.db` is created and status bar shows connected database.
 - [ ] **Core Workflow:**
@@ -115,5 +144,6 @@ The codebase preserves the Windows 7 SP1 and .NET Framework 4.8 target configura
   - [ ] Verify Dashboard KPIs
   - [ ] View Transaction History
 - [ ] **CSV Export:** Export Products and Transactions to `.csv`; confirm files open cleanly in Microsoft Excel or Notepad.
+- [ ] **Excel Import:** Download template, populate products, validate, preview, and import; confirm products appear with 0 stock.
 - [ ] **Database Backup:** Run "Backup DB..." and confirm `.db` snapshot is written.
 - [ ] **Relaunch:** Close and reopen `LDIS.App.exe`; confirm data persists.

@@ -48,9 +48,14 @@ namespace LDIS.Core.Tests
                 m7Tests.RunAllTests();
 
                 Console.WriteLine();
+                Console.WriteLine("--- Milestone 9 Excel Import & Onboarding Tests ---");
+                var m9Tests = new Milestone9ExcelImportTests();
+                m9Tests.RunAllTests();
+
+                Console.WriteLine();
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("=================================================");
-                Console.WriteLine(" ALL MILESTONE 1, 2, 3, 4, 5, 6 & 7 TESTS PASSED");
+                Console.WriteLine(" ALL MILESTONE 1, 2, 3, 4, 5, 6, 7 & 9 TESTS PASSED");
                 Console.WriteLine("=================================================");
                 Console.ResetColor();
                 return 0;

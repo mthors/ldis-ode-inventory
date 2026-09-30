@@ -62,6 +62,7 @@ namespace LDIS.App.Forms
         private System.Windows.Forms.Button btnToggleStatus;
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Label lblGridSummary;
         private System.Windows.Forms.ContextMenuStrip ctxProductMenu;
         private System.Windows.Forms.ToolStripMenuItem mnuStockIn;
@@ -159,6 +160,7 @@ namespace LDIS.App.Forms
             this.btnToggleStatus = new System.Windows.Forms.Button();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnExport = new System.Windows.Forms.Button();
+            this.btnImport = new System.Windows.Forms.Button();
             this.lblGridSummary = new System.Windows.Forms.Label();
             this.ctxProductMenu = new System.Windows.Forms.ContextMenuStrip();
             this.mnuStockIn = new System.Windows.Forms.ToolStripMenuItem();
@@ -725,6 +727,7 @@ namespace LDIS.App.Forms
             this.pnlGridToolbar.Controls.Add(this.btnToggleStatus);
             this.pnlGridToolbar.Controls.Add(this.btnRefresh);
             this.pnlGridToolbar.Controls.Add(this.btnExport);
+            this.pnlGridToolbar.Controls.Add(this.btnImport);
             this.pnlGridToolbar.Controls.Add(this.lblGridSummary);
             this.pnlGridToolbar.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlGridToolbar.Location = new System.Drawing.Point(10, 116);
@@ -823,6 +826,15 @@ namespace LDIS.App.Forms
             this.btnExport.Text = "Export";
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+
+            // btnImport
+            this.btnImport.Location = new System.Drawing.Point(714, 5);
+            this.btnImport.Name = "btnImport";
+            this.btnImport.Size = new System.Drawing.Size(76, 30);
+            this.btnImport.TabIndex = 8;
+            this.btnImport.Text = "Import...";
+            this.btnImport.UseVisualStyleBackColor = true;
+            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
 
             // lblGridSummary
             this.lblGridSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));

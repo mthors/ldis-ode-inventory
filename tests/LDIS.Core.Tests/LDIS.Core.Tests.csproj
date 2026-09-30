@@ -72,6 +72,7 @@
     <Compile Include="Milestone5ExportAndBackupTests.cs" />
     <Compile Include="Milestone6DeploymentAndRegressionTests.cs" />
     <Compile Include="Milestone7ExcelExportTests.cs" />
+    <Compile Include="Milestone9ExcelImportTests.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
