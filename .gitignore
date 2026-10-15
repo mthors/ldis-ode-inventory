@@ -22,3 +22,6 @@ database/*.db
 dist/
 publish/
 *.zip
+
+## Codegraph
+.codegraph/

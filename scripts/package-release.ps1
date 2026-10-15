@@ -6,8 +6,13 @@
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
-    [string]$Version = "1.2.0"
+    [string]$Version = "1.2.0",
+    [string]$PackageName = ""
 )
+
+if ([string]::IsNullOrWhiteSpace($PackageName)) {
+    $PackageName = "LDIS-v$Version"
+}
 
 $ErrorActionPreference = "Stop"
 
@@ -15,11 +20,11 @@ $rootDir = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $slnPath = Join-Path $rootDir "LDIS.sln"
 $appBinDir = Join-Path $rootDir "src\LDIS.App\bin\$Configuration"
 $distDir = Join-Path $rootDir "dist"
-$stageDir = Join-Path $distDir "LDIS-v$Version"
-$zipPath = Join-Path $distDir "LDIS-v$Version.zip"
+$stageDir = Join-Path $distDir $PackageName
+$zipPath = Join-Path $distDir "$PackageName.zip"
 
 Write-Host "=========================================================" -ForegroundColor Cyan
-Write-Host " LDIS Release Packaging - Version $Version ($Configuration)" -ForegroundColor Cyan
+Write-Host " LDIS Release Packaging - Version $Version ($Configuration) -> $PackageName" -ForegroundColor Cyan
 Write-Host "=========================================================" -ForegroundColor Cyan
 
 # 1. Locate MSBuild
@@ -70,8 +75,6 @@ $whitelist = @(
     @{ Source = "ClosedXML.dll"; Dest = "ClosedXML.dll" },
     @{ Source = "DocumentFormat.OpenXml.dll"; Dest = "DocumentFormat.OpenXml.dll" },
     @{ Source = "ExcelNumberFormat.dll"; Dest = "ExcelNumberFormat.dll" },
-    @{ Source = "System.IO.FileSystem.Primitives.dll"; Dest = "System.IO.FileSystem.Primitives.dll" },
-    @{ Source = "System.IO.Packaging.dll"; Dest = "System.IO.Packaging.dll" },
     @{ Source = "System.Data.SQLite.dll"; Dest = "System.Data.SQLite.dll" },
     @{ Source = "x86\SQLite.Interop.dll"; Dest = "x86\SQLite.Interop.dll" },
     @{ Source = "x64\SQLite.Interop.dll"; Dest = "x64\SQLite.Interop.dll" }
@@ -94,18 +97,25 @@ Write-Host "[4/6] Creating deployment README.txt..." -ForegroundColor Yellow
 $readmeContent = @"
 ================================================================================
 LDIS - Lightweight Desktop Inventory System v$Version
+(.NET Framework 4.5.1 Compatibility Test Build)
 ================================================================================
 
 A lightweight, offline-first Windows desktop inventory system designed for
 factory and warehouse inventory management.
 
+IMPORTANT NOTICE:
+-----------------
+This is an experimental compatibility test build targeting .NET Framework 4.5.1
+for validation on Windows 7 SP1 client machines. Final compatibility is subject
+to on-site manual acceptance testing.
+
 SYSTEM REQUIREMENTS
 -------------------
 * Operating System:
-  - Windows 7 SP1 (32-bit or 64-bit) with .NET Framework 4.8
+  - Windows 7 SP1 (32-bit or 64-bit) with .NET Framework 4.5.1
   - Windows 8 / 8.1 / 10 / 11
 * Prerequisites:
-  - Microsoft .NET Framework 4.8 Runtime
+  - Microsoft .NET Framework 4.5.1 Runtime (or higher)
   - Note: No Visual C++ Redistributable or external database server required.
 
 INSTALLATION & USAGE
@@ -143,7 +153,7 @@ EXCEL IMPORT & EXPORT
 SUPPORT & TROUBLESHOOTING
 -------------------------
 * If the application does not start on Windows 7 SP1, verify that
-  Microsoft .NET Framework 4.8 is installed on the computer.
+  Microsoft .NET Framework 4.5.1 is installed on the computer.
 ================================================================================
 "@
 
@@ -159,8 +169,6 @@ $requiredFiles = @(
     "ClosedXML.dll",
     "DocumentFormat.OpenXml.dll",
     "ExcelNumberFormat.dll",
-    "System.IO.FileSystem.Primitives.dll",
-    "System.IO.Packaging.dll",
     "System.Data.SQLite.dll",
     "x86\SQLite.Interop.dll",
     "x64\SQLite.Interop.dll",
